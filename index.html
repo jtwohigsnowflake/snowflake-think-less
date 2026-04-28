@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Think Less. Know More. — Snowflake Agent Platform</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --sf-blue: #29B5E8;
+    --sf-blue-dark: #1AA3D9;
+    --sf-navy: #0D1B2E;
+    --sf-navy-mid: #12253F;
+    --sf-navy-light: #1A3355;
+    --sf-white: #FFFFFF;
+    --sf-gray: #8BAFC8;
+    --sf-gray-light: #C8DCE8;
+    --sf-accent: #00D4FF;
+    --sf-green: #1ED760;
+    --sf-red: #FF5A5F;
+    --sf-border: rgba(41, 181, 232, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--sf-navy);
+    color: var(--sf-white);
+    overflow-x: hidden;
+  }
+
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 80px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(41,181,232,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(41,181,232,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(41,181,232,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(41,181,232,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--sf-blue);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px; position: relative;
+  }
+  .hero-eyebrow svg { width: 40px; height: 40px; flex-shrink: 0; }
+  .eyebrow-dot { display: none; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  h1 {
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  h1 .line1 { display: block; color: var(--sf-white); }
+  h1 .line2 { display: block; color: var(--sf-blue); }
+
+  .hero-sub {
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--sf-gray);
+    max-width: 620px;
+    line-height: 1.6;
+    margin: 24px auto 0;
+    font-weight: 400;
+  }
+  .hero-sub strong { color: var(--sf-gray-light); font-weight: 600; }
+
+  .hero-ctas {
+    display: flex; gap: 16px; margin-top: 44px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--sf-blue); color: var(--sf-navy);
+    font-weight: 700; font-size: 16px;
+    padding: 14px 32px; border-radius: 8px;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 0 32px rgba(41,181,232,0.3);
+  }
+  .btn-primary:hover { background: var(--sf-accent); transform: translateY(-1px); box-shadow: 0 0 48px rgba(41,181,232,0.5); }
+  .btn-secondary {
+    background: transparent; color: var(--sf-gray-light);
+    font-weight: 600; font-size: 16px;
+    padding: 14px 32px; border-radius: 8px;
+    text-decoration: none; border: 1px solid var(--sf-border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
+
+  .hero-stats {
+    display: flex; gap: 60px; margin-top: 72px;
+    position: relative;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 36px; font-weight: 800; color: var(--sf-blue); }
+  .stat-label { font-size: 13px; color: var(--sf-gray); margin-top: 4px; font-weight: 500; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 40px; }
+  .section-label {
+    text-align: center;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--sf-blue);
+    margin-bottom: 16px;
+  }
+  h2 {
+    text-align: center;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800; letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .section-desc {
+    text-align: center; max-width: 600px; margin: 0 auto;
+    color: var(--sf-gray); font-size: 18px; line-height: 1.6;
+  }
+
+  /* ── DEMO SECTION ── */
+  .demo-section {
+    background: var(--sf-navy-mid);
+    border-top: 1px solid var(--sf-border);
+    border-bottom: 1px solid var(--sf-border);
+  }
+  .demo-wrapper {
+    max-width: 1200px; margin: 60px auto 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .demo-panel {
+    background: var(--sf-navy);
+    border-radius: 16px;
+    border: 1px solid;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    min-height: 540px;
+  }
+  .demo-panel.llm-panel { border-color: rgba(255,90,95,0.3); }
+  .demo-panel.sf-panel  { border-color: rgba(41,181,232,0.4); }
+
+  .demo-header {
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid;
+  }
+  .llm-panel .demo-header { background: rgba(255,90,95,0.08); border-color: rgba(255,90,95,0.2); }
+  .sf-panel  .demo-header { background: rgba(41,181,232,0.08); border-color: rgba(41,181,232,0.2); }
+
+  .demo-header-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .llm-panel .demo-header-icon { background: rgba(255,90,95,0.15); }
+  .sf-panel  .demo-header-icon { background: rgba(41,181,232,0.15); }
+
+  .demo-header-text { flex: 1; }
+  .demo-header-title { font-size: 14px; font-weight: 700; }
+  .llm-panel .demo-header-title { color: var(--sf-red); }
+  .sf-panel  .demo-header-title { color: var(--sf-blue); }
+  .demo-header-sub { font-size: 12px; color: var(--sf-gray); margin-top: 2px; }
+
+  .demo-metrics {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+    min-width: 120px;
+  }
+  .demo-timer {
+    font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums;
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+  }
+  .llm-panel .demo-timer { color: var(--sf-red); }
+  .sf-panel  .demo-timer { color: var(--sf-green); }
+  .demo-tokens {
+    font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+    font-family: 'Courier New', monospace;
+    opacity: 0.75; text-align: right;
+  }
+  .llm-panel .demo-tokens { color: var(--sf-red); }
+  .sf-panel  .demo-tokens { color: var(--sf-green); }
+
+  .demo-body { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+
+  .demo-step {
+    display: flex; gap: 12px; align-items: flex-start;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .demo-step.visible { opacity: 1; transform: translateY(0); }
+
+  .step-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-icon.thinking { background: rgba(255,180,0,0.15); color: #FFB400; }
+  .step-icon.error    { background: rgba(255,90,95,0.15);  color: var(--sf-red); }
+  .step-icon.ok       { background: rgba(41,181,232,0.15); color: var(--sf-blue); }
+  .step-icon.fast     { background: rgba(30,215,96,0.15);  color: var(--sf-green); }
+
+  .step-body { flex: 1; }
+  .step-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .step-label.thinking-label { color: #FFB400; }
+  .step-label.error-label    { color: var(--sf-red); }
+  .step-label.ok-label       { color: var(--sf-blue); }
+  .step-label.fast-label     { color: var(--sf-green); }
+
+  .step-text {
+    font-size: 13px; color: var(--sf-gray);
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px; padding: 8px 12px;
+    line-height: 1.5;
+    font-family: 'Courier New', monospace;
+  }
+  .step-text.highlight {
+    background: rgba(41,181,232,0.07);
+    border: 1px solid rgba(41,181,232,0.2);
+    color: var(--sf-gray-light);
+  }
+  .step-text.highlight-bad {
+    background: rgba(255,90,95,0.07);
+    border: 1px solid rgba(255,90,95,0.2);
+  }
+
+  .thinking-dots { display: inline-flex; gap: 4px; margin-left: 4px; }
+  .thinking-dots span {
+    width: 5px; height: 5px; border-radius: 50%; background: #FFB400;
+    animation: bounce 1.2s infinite;
+  }
+  .thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+  .demo-result {
+    margin: 0 20px 20px;
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; transition: opacity 0.5s;
+    border: 1px solid;
+  }
+  .demo-result.visible { opacity: 1; }
+  .demo-result.fail { background: rgba(255,90,95,0.08); border-color: rgba(255,90,95,0.3); }
+  .demo-result.success { background: rgba(30,215,96,0.08); border-color: rgba(30,215,96,0.3); }
+  .result-icon { font-size: 22px; }
+  .result-text { font-size: 13px; line-height: 1.4; }
+  .result-text strong { display: block; font-size: 14px; margin-bottom: 3px; }
+  .fail .result-text strong { color: var(--sf-red); }
+  .success .result-text strong { color: var(--sf-green); }
+  .result-text span { color: var(--sf-gray); }
+
+  .demo-controls {
+    text-align: center; margin-top: 32px;
+  }
+  .btn-replay {
+    background: var(--sf-navy-light); color: var(--sf-gray-light);
+    border: 1px solid var(--sf-border); border-radius: 8px;
+    padding: 12px 28px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-replay:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
+
+  /* ── WHY SECTION ── */
+  .why-section { background: var(--sf-navy); }
+  .why-grid {
+    max-width: 1100px; margin: 60px auto 0;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    background: var(--sf-navy-mid);
+    border: 1px solid var(--sf-border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .why-card:hover { border-color: var(--sf-blue); transform: translateY(-4px); }
+  .why-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(41,181,232,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .why-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.65; }
+  .why-card .tag {
+    display: inline-block; margin-top: 16px;
+    background: rgba(41,181,232,0.1); color: var(--sf-blue);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px;
+  }
+
+  /* ── VS STRIP ── */
+  .vs-section {
+    background: var(--sf-navy-mid);
+    border-top: 1px solid var(--sf-border);
+    border-bottom: 1px solid var(--sf-border);
+    padding: 80px 40px;
+  }
+  .vs-table {
+    max-width: 900px; margin: 50px auto 0;
+    border: 1px solid var(--sf-border); border-radius: 16px; overflow: hidden;
+  }
+  .vs-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--sf-border);
+  }
+  .vs-row:last-child { border-bottom: none; }
+  .vs-cell {
+    padding: 18px 24px;
+    font-size: 14px; line-height: 1.5;
+  }
+  .vs-row.header .vs-cell {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--sf-gray); background: rgba(255,255,255,0.03);
+  }
+  .vs-cell.center { text-align: center; border-left: 1px solid var(--sf-border); border-right: 1px solid var(--sf-border); }
+  .vs-cell.label { color: var(--sf-gray-light); font-weight: 600; }
+  .vs-cell.bad { color: var(--sf-red); }
+  .vs-cell.good { color: var(--sf-green); }
+  .vs-cell.bad::before { content: "✗ "; }
+  .vs-cell.good::before { content: "✓ "; }
+
+  /* ── USE CASES ── */
+  .usecases-section { background: var(--sf-navy); }
+  .uc-grid {
+    max-width: 1100px; margin: 60px auto 0;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .uc-card {
+    background: var(--sf-navy-mid);
+    border: 1px solid var(--sf-border);
+    border-radius: 14px; padding: 28px;
+    transition: all 0.2s;
+  }
+  .uc-card:hover { border-color: var(--sf-blue); }
+  .uc-emoji { font-size: 32px; margin-bottom: 14px; }
+  .uc-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .uc-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.6; }
+  .uc-badge {
+    display: inline-block; margin-top: 14px;
+    background: rgba(41,181,232,0.08); color: var(--sf-blue);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+    border: 1px solid rgba(41,181,232,0.2);
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--sf-navy-mid) 0%, rgba(41,181,232,0.08) 100%);
+    border-top: 1px solid var(--sf-border);
+    text-align: center; padding: 100px 40px;
+  }
+  .cta-section h2 { margin-bottom: 20px; }
+  .cta-section p { color: var(--sf-gray); font-size: 18px; max-width: 500px; margin: 0 auto 40px; line-height: 1.6; }
+
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 70px 20px; }
+    .demo-wrapper { grid-template-columns: 1fr; }
+    .why-grid, .uc-grid { grid-template-columns: 1fr; }
+    .vs-table { display: none; }
+    .hero-stats { gap: 30px; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 10 L90 32.5 L90 67.5 L50 90 L10 67.5 L10 32.5 Z" fill="none" stroke="#29B5E8" stroke-width="6"/>
+      <path d="M50 25 L75 39 L75 61 L50 75 L25 61 L25 39 Z" fill="#29B5E8" opacity="0.3"/>
+      <circle cx="50" cy="50" r="10" fill="#29B5E8"/>
+    </svg>
+    Snowflake Agent Platform
+  </div>
+  <h1>
+    <span class="line1">Think Less.</span>
+    <span class="line2">Know More.</span>
+  </h1>
+  <p class="hero-sub">
+    Your LLM is smart — but <strong>overthinking is expensive</strong> and causes hallucinations.
+    Snowflake's Agent Platform is built inside the Data Cloud, so your agents arrive at answers
+    <strong>faster, cheaper, and with confidence.</strong>
+  </p>
+  <div class="hero-ctas">
+    <a href="#demo" class="btn-primary">See It In Action</a>
+    <a href="#why" class="btn-secondary">Why the Ecosystem Matters →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">10×</div><div class="stat-label">Fewer reasoning tokens</div></div>
+    <div class="stat"><div class="stat-num">5×</div><div class="stat-label">Faster time to answer</div></div>
+    <div class="stat"><div class="stat-num">90%</div><div class="stat-label">Less hallucination risk</div></div>
+  </div>
+</div>
+
+<!-- DEMO SECTION -->
+<section class="demo-section" id="demo">
+  <div class="section-label">Live Comparison</div>
+  <h2>The Overthinking Problem — Solved</h2>
+  <p class="section-desc">Watch what happens when an LLM has to figure it all out vs. when it already knows everything it needs.</p>
+  <div class="demo-controls">
+    <button class="btn-replay" onclick="runDemo()">↺ Replay Demo</button>
+  </div>
+
+  <div class="demo-wrapper">
+
+    <!-- LLM PANEL -->
+    <div class="demo-panel llm-panel">
+      <div class="demo-header">
+        <div class="demo-header-icon">🤔</div>
+        <div class="demo-header-text">
+          <div class="demo-header-title">Raw LLM + Database</div>
+          <div class="demo-header-sub">No context. No semantics. No guardrails.</div>
+        </div>
+        <div class="demo-metrics">
+            <div class="demo-timer" id="llm-timer">0.0s</div>
+            <div class="demo-tokens" id="llm-tokens">0 tokens</div>
+          </div>
+      </div>
+      <div class="demo-body" id="llm-steps"></div>
+      <div class="demo-result fail" id="llm-result">
+        <div class="result-icon">⚠️</div>
+        <div class="result-text">
+          <strong>Slow. Expensive. Uncertain.</strong>
+          <span>24.3s elapsed · 18,400 tokens consumed · Answer may be wrong</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNOWFLAKE PANEL -->
+    <div class="demo-panel sf-panel">
+      <div class="demo-header">
+        <div class="demo-header-icon">❄️</div>
+        <div class="demo-header-text">
+          <div class="demo-header-title">Snowflake Agent Platform</div>
+          <div class="demo-header-sub">Semantic layer · RBAC · Vector search · Audit</div>
+        </div>
+        <div class="demo-metrics">
+            <div class="demo-timer" id="sf-timer">0.0s</div>
+            <div class="demo-tokens" id="sf-tokens">0 tokens</div>
+          </div>
+      </div>
+      <div class="demo-body" id="sf-steps"></div>
+      <div class="demo-result success" id="sf-result">
+        <div class="result-icon">✅</div>
+        <div class="result-text">
+          <strong>Fast. Governed. Confident.</strong>
+          <span>2.1s elapsed · 1,200 tokens consumed · Answer verified</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section" id="why">
+  <div class="section-label">Why the Ecosystem Wins</div>
+  <h2>LLM + Dataset ≠ Intelligence</h2>
+  <p class="section-desc">Pointing a model at raw data forces it to reinvent knowledge it shouldn't have to. Snowflake gives it superpowers instead.</p>
+  <div class="why-grid">
+
+    <div class="why-card">
+      <div class="why-icon">📐</div>
+      <h3>Semantic Layer</h3>
+      <p>Pre-defined business metrics, relationships, and trusted definitions mean the LLM never has to guess what "revenue" means. It already knows — and it's always consistent.</p>
+      <span class="tag">No Guessing</span>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <h3>RBAC & Data Governance</h3>
+      <p>Role-based access control ensures agents only see data they're allowed to see. No accidental leakage, no unauthorized queries — governance runs automatically at query time.</p>
+      <span class="tag">Built-in Trust</span>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">🔍</div>
+      <h3>Vector Search & Embeddings</h3>
+      <p>Cortex Search retrieves exactly the right context — docs, records, history — before the LLM even starts thinking. Less inference, more precision.</p>
+      <span class="tag">Smarter Context</span>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">📋</div>
+      <h3>Audit Logging</h3>
+      <p>Every agent action is logged, traceable, and compliant. Know what your agent queried, when, and why. Essential for regulated industries and enterprise trust.</p>
+      <span class="tag">Full Visibility</span>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h3>Cortex AI Native</h3>
+      <p>LLM inference, embeddings, and vector search run inside Snowflake — no data leaves the cloud boundary. Faster latency, lower cost, zero egress risk.</p>
+      <span class="tag">Zero Data Movement</span>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">🌐</div>
+      <h3>Unified Data Context</h3>
+      <p>Structured tables, unstructured docs, real-time streams — all in one place. Your agent gets the full picture without stitching together 5 different systems.</p>
+      <span class="tag">One Platform</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- VS STRIP -->
+<section class="vs-section">
+  <div class="section-label">Side-by-Side</div>
+  <h2>Raw LLM vs. Snowflake Agent Platform</h2>
+  <div class="vs-table">
+    <div class="vs-row header">
+      <div class="vs-cell">Capability</div>
+      <div class="vs-cell center">Raw LLM + DB</div>
+      <div class="vs-cell">Snowflake Agent Platform</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Business context awareness</div>
+      <div class="vs-cell center bad">Infers from schema</div>
+      <div class="vs-cell good">Pre-defined semantic layer</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Access control</div>
+      <div class="vs-cell center bad">Manual, error-prone</div>
+      <div class="vs-cell good">Automatic RBAC enforcement</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Relevant context retrieval</div>
+      <div class="vs-cell center bad">Full table scan / guessing</div>
+      <div class="vs-cell good">Vector search + embeddings</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Token usage</div>
+      <div class="vs-cell center bad">Very high (schema + reasoning)</div>
+      <div class="vs-cell good">Minimal (context pre-loaded)</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Auditability</div>
+      <div class="vs-cell center bad">None</div>
+      <div class="vs-cell good">Full query + agent audit log</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Hallucination risk</div>
+      <div class="vs-cell center bad">High (no grounding)</div>
+      <div class="vs-cell good">Low (governed, grounded)</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-cell label">Time to first answer</div>
+      <div class="vs-cell center bad">15–30 seconds</div>
+      <div class="vs-cell good">1–3 seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases-section" id="usecases">
+  <div class="section-label">Across Every Data Workflow</div>
+  <h2>Works Wherever Your Data Lives</h2>
+  <p class="section-desc">From raw ingestion to boardroom analytics — Snowflake's Agent Platform accelerates every layer of the data stack.</p>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-emoji">🏗️</div>
+      <h3>Data Engineering</h3>
+      <p>Agents design pipelines, write transformations, monitor freshness, and fix failures — with full knowledge of your schema, governance rules, and data contracts.</p>
+      <span class="uc-badge">Pipeline Automation</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-emoji">🏢</div>
+      <h3>Data Warehousing</h3>
+      <p>Natural language to SQL — but grounded in your semantic layer. Agents know your metrics are right before writing a single query.</p>
+      <span class="uc-badge">Text-to-SQL</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-emoji">📊</div>
+      <h3>Data Analytics</h3>
+      <p>Ask business questions, get verified answers. The semantic layer ensures "Q3 revenue" always means the same thing — no matter who asks.</p>
+      <span class="uc-badge">Self-Service BI</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-emoji">🤖</div>
+      <h3>AI/ML Workflows</h3>
+      <p>Feature engineering, model training, and inference — all within the Data Cloud. No data movement. No context loss. No extra infrastructure.</p>
+      <span class="uc-badge">MLOps Native</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-emoji">🔐</div>
+      <h3>Compliance & Risk</h3>
+      <p>Agents monitor data access patterns, flag policy violations, and generate compliance reports automatically — with full audit trail out of the box.</p>
+      <span class="uc-badge">Audit-Ready</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-emoji">📦</div>
+      <h3>Data Products</h3>
+      <p>Build governed, sharable data products with embedded semantics. Internal teams and external consumers all get the same trusted definition of your data.</p>
+      <span class="uc-badge">Data Marketplace</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label">Get Started</div>
+  <h2>Stop Paying for Overthinking</h2>
+  <p>Your agents deserve better context. Give them the Data Cloud.</p>
+  <div class="hero-ctas">
+    <a href="https://www.snowflake.com" class="btn-primary">Start Building Free</a>
+  </div>
+</section>
+
+
+
+<script>
+// ── DEMO ENGINE ──
+const LLM_STEPS = [
+  { delay: 400,  icon: 'thinking', label: 'thinking-label', type: 'Introspecting Schema',
+    text: 'SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_schema = \'PUBLIC\'... scanning 847 columns across 63 tables...' },
+  { delay: 1800, icon: 'thinking', label: 'thinking-label', type: 'Reasoning About Relationships',
+    text: 'Hmm, "revenue" could be in orders.total_amount, sales.net_revenue, or finance.recognized_rev... need to infer business logic from column names<span class="thinking-dots"><span></span><span></span><span></span></span>' },
+  { delay: 3200, icon: 'thinking', label: 'thinking-label', type: 'Guessing Metric Definitions',
+    text: 'Is "customer" join key = user_id, account_id, or customer_uuid? Trying all three combinations... generating 12 candidate SQL queries...' },
+  { delay: 5200, icon: 'error',    label: 'error-label',    type: 'Ambiguity Detected',
+    text: 'WARNING: "quarterly revenue" is ambiguous — found 4 conflicting column definitions. Choosing most likely match based on naming convention... (may be wrong)', cls: 'highlight-bad' },
+  { delay: 6800, icon: 'thinking', label: 'thinking-label', type: 'Constructing Query (Attempt 1)',
+    text: 'SELECT SUM(o.total_amount) FROM orders o JOIN customers c ON o.user_id = c.id WHERE QUARTER(o.created_at) = 3...' },
+  { delay: 8400, icon: 'error',    label: 'error-label',    type: 'Query Failed',
+    text: 'ERROR: permission denied for table orders. Retrying with alternate access path... discovering permissions by trial and error.', cls: 'highlight-bad' },
+  { delay: 9800, icon: 'thinking', label: 'thinking-label', type: 'Retrying with Sales Schema',
+    text: 'SELECT SUM(s.net_revenue) FROM sales.transactions s WHERE s.fiscal_quarter = \'Q3-2024\' AND s.status != \'refunded\'...' },
+  { delay: 11600,icon: 'thinking', label: 'thinking-label', type: 'Validating Result',
+    text: 'Result: $142,847,293 — but no confidence check available. Cannot verify against known totals. Returning with low confidence flag.<span class="thinking-dots"><span></span><span></span><span></span></span>' },
+];
+
+const SF_STEPS = [
+  { delay: 200,  icon: 'ok',   label: 'ok-label',   type: 'Semantic Layer Loaded',
+    text: '"quarterly_revenue" → verified definition: SUM(net_revenue) WHERE fiscal_quarter = :quarter AND status IN (\'closed\',\'paid\'). Source: finance_metrics semantic view.', cls: 'highlight' },
+  { delay: 700,  icon: 'ok',   label: 'ok-label',   type: 'RBAC Check Passed',
+    text: 'Role ANALYST_ROLE → access granted to finance.revenue_summary. Restricted columns automatically masked. Audit event logged.', cls: 'highlight' },
+  { delay: 1100, icon: 'fast', label: 'fast-label',  type: 'Vector Search: Context Retrieved',
+    text: 'Cortex Search matched 3 relevant documents: Q3 revenue definition, fiscal calendar spec, refund exclusion policy. Injected as grounded context.', cls: 'highlight' },
+  { delay: 1500, icon: 'fast', label: 'fast-label',  type: 'Query Generated (1 attempt)',
+    text: 'SELECT quarterly_revenue FROM finance_metrics.revenue_summary WHERE fiscal_quarter = \'Q3-2024\' — 1 unambiguous query, no guessing required.', cls: 'highlight' },
+  { delay: 1900, icon: 'fast', label: 'fast-label',  type: 'Answer Verified & Returned',
+    text: 'Result: $142,847,293 ✓  Confidence: HIGH · Matches semantic layer definition · Cross-checked against audit log · Zero hallucination risk.', cls: 'highlight' },
+];
+
+let llmInterval = null, sfInterval = null;
+let llmTimerInterval = null, sfTimerInterval = null;
+let llmTokenInterval = null, sfTokenInterval = null;
+let demoRunning = false;
+
+function clearDemo() {
+  document.getElementById('llm-steps').innerHTML = '';
+  document.getElementById('sf-steps').innerHTML = '';
+  document.getElementById('llm-result').classList.remove('visible');
+  document.getElementById('sf-result').classList.remove('visible');
+  document.getElementById('llm-timer').textContent = '0.0s';
+  document.getElementById('sf-timer').textContent = '0.0s';
+  document.getElementById('llm-tokens').textContent = '0 tokens';
+  document.getElementById('sf-tokens').textContent = '0 tokens';
+  if (llmTimerInterval) clearInterval(llmTimerInterval);
+  if (sfTimerInterval)  clearInterval(sfTimerInterval);
+  if (llmTokenInterval) clearInterval(llmTokenInterval);
+  if (sfTokenInterval)  clearInterval(sfTokenInterval);
+}
+
+function startTokenCounter(elId, maxVal, speed) {
+  let t = 0;
+  const el = document.getElementById(elId);
+  const iv = setInterval(() => {
+    t = Math.min(t + speed, maxVal);
+    el.textContent = Math.round(t).toLocaleString() + ' tokens';
+    if (t >= maxVal) clearInterval(iv);
+  }, 100);
+  return iv;
+}
+
+function startTimer(elId, maxVal, speed, onDone) {
+  let t = 0;
+  const el = document.getElementById(elId);
+  const iv = setInterval(() => {
+    t += speed;
+    el.textContent = t.toFixed(1) + 's';
+    if (t >= maxVal) { clearInterval(iv); if (onDone) onDone(); }
+  }, 100);
+  return iv;
+}
+
+function addStep(containerId, step) {
+  const c = document.getElementById(containerId);
+  const div = document.createElement('div');
+  div.className = 'demo-step';
+  div.innerHTML = `
+    <div class="step-icon ${step.icon}">
+      ${ step.icon === 'thinking' ? '⋯' : step.icon === 'error' ? '✗' : step.icon === 'fast' ? '⚡' : '✓' }
+    </div>
+    <div class="step-body">
+      <div class="step-label ${step.label}">${step.type}</div>
+      <div class="step-text ${step.cls || ''}">${step.text}</div>
+    </div>`;
+  c.appendChild(div);
+  requestAnimationFrame(() => div.classList.add('visible'));
+  c.scrollTop = c.scrollHeight;
+}
+
+function runDemo() {
+  if (demoRunning) return;
+  demoRunning = true;
+  clearDemo();
+
+  // LLM side — slow, painful
+  LLM_STEPS.forEach(step => {
+    setTimeout(() => addStep('llm-steps', step), step.delay * 1.2);
+  });
+  llmTimerInterval = startTimer('llm-timer', 24.3, 0.2, () => {
+    document.getElementById('llm-result').classList.add('visible');
+  });
+  llmTokenInterval = startTokenCounter('llm-tokens', 18400, 152);
+
+  // Snowflake side — fast, confident
+  SF_STEPS.forEach(step => {
+    setTimeout(() => addStep('sf-steps', step), step.delay);
+  });
+  sfTimerInterval = startTimer('sf-timer', 2.1, 0.1, () => {
+    document.getElementById('sf-result').classList.add('visible');
+  });
+  sfTokenInterval = startTokenCounter('sf-tokens', 1200, 57);
+
+  setTimeout(() => { demoRunning = false; }, 14000);
+}
+
+// Auto-run when scrolled into view
+const demoSection = document.getElementById('demo');
+let demoPlayed = false;
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !demoPlayed) {
+      demoPlayed = true;
+      setTimeout(runDemo, 400);
+    }
+  });
+}, { threshold: 0.3 });
+observer.observe(demoSection);
+</script>
+</body>
+</html>
