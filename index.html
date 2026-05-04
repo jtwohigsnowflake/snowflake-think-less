@@ -4,9 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Think Less. Know More. — Snowflake Agent Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
   :root {
     --sf-blue: #29B5E8;
     --sf-blue-dark: #1AA3D9;
@@ -17,27 +16,28 @@
     --sf-gray: #8BAFC8;
     --sf-gray-light: #C8DCE8;
     --sf-accent: #00D4FF;
-    --sf-green: #1ED760;
+    --sf-green: #4CAF50;
+    --sf-green-light: #81c784;
+    --sf-orange: #FF9800;
+    --sf-orange-light: #ffb74d;
     --sf-red: #FF5A5F;
     --sf-border: rgba(41, 181, 232, 0.2);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     background: var(--sf-navy);
     color: var(--sf-white);
     overflow-x: hidden;
+    line-height: 1.5;
   }
 
-
-  /* ── HERO ── */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center;
-    padding: 80px 40px 80px;
+    padding: 80px 40px;
     position: relative;
     overflow: hidden;
   }
@@ -48,22 +48,18 @@
   }
   .hero-grid {
     position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(41,181,232,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(41,181,232,0.05) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(41,181,232,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(41,181,232,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
   }
-  .hero-eyebrow {
+  .hero-brand {
     display: inline-flex; align-items: center; gap: 12px;
     font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--sf-blue);
     letter-spacing: -0.02em;
     margin-bottom: 20px; position: relative;
   }
-  .hero-eyebrow svg { width: 40px; height: 40px; flex-shrink: 0; }
-  .eyebrow-dot { display: none; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
-
+  .hero-brand svg { width: 40px; height: 40px; flex-shrink: 0; }
   h1 {
     font-size: clamp(52px, 7vw, 96px);
     font-weight: 900;
@@ -74,328 +70,277 @@
   }
   h1 .line1 { display: block; color: var(--sf-white); }
   h1 .line2 { display: block; color: var(--sf-blue); }
-
   .hero-sub {
-    font-size: clamp(18px, 2vw, 22px);
-    color: var(--sf-gray);
-    max-width: 620px;
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--sf-gray-light);
+    max-width: 750px;
+    margin: 0 auto 40px;
+    position: relative;
     line-height: 1.6;
-    margin: 24px auto 0;
-    font-weight: 400;
   }
-  .hero-sub strong { color: var(--sf-gray-light); font-weight: 600; }
-
-  .hero-ctas {
-    display: flex; gap: 16px; margin-top: 44px;
-    flex-wrap: wrap; justify-content: center;
-  }
+  .hero-sub strong { color: var(--sf-white); }
+  .hero-ctas { display: flex; gap: 16px; justify-content: center; position: relative; margin-bottom: 50px; }
   .btn-primary {
     background: var(--sf-blue); color: var(--sf-navy);
+    padding: 16px 32px; border-radius: 8px; text-decoration: none;
     font-weight: 700; font-size: 16px;
-    padding: 14px 32px; border-radius: 8px;
-    text-decoration: none; transition: all 0.2s;
-    box-shadow: 0 0 32px rgba(41,181,232,0.3);
+    transition: all 0.2s;
   }
-  .btn-primary:hover { background: var(--sf-accent); transform: translateY(-1px); box-shadow: 0 0 48px rgba(41,181,232,0.5); }
+  .btn-primary:hover { background: var(--sf-accent); transform: translateY(-1px); }
   .btn-secondary {
-    background: transparent; color: var(--sf-gray-light);
+    border: 1px solid var(--sf-border); color: var(--sf-gray-light);
+    padding: 16px 32px; border-radius: 8px; text-decoration: none;
     font-weight: 600; font-size: 16px;
-    padding: 14px 32px; border-radius: 8px;
-    text-decoration: none; border: 1px solid var(--sf-border);
     transition: all 0.2s;
   }
   .btn-secondary:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
-
   .hero-stats {
-    display: flex; gap: 60px; margin-top: 72px;
-    position: relative;
+    display: flex; gap: 60px; position: relative;
   }
   .stat { text-align: center; }
   .stat-num { font-size: 36px; font-weight: 800; color: var(--sf-blue); }
-  .stat-label { font-size: 13px; color: var(--sf-gray); margin-top: 4px; font-weight: 500; }
+  .stat-label { font-size: 13px; color: var(--sf-gray); margin-top: 4px; }
 
-  /* ── SECTION COMMON ── */
-  section { padding: 100px 40px; }
+  /* SECTIONS */
+  section { padding: 100px 60px; }
   .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--sf-blue); margin-bottom: 12px;
     text-align: center;
-    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--sf-blue);
-    margin-bottom: 16px;
   }
-  h2 {
-    text-align: center;
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 800; letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 20px;
+  section h2 {
+    font-size: clamp(28px, 3.5vw, 42px); font-weight: 800;
+    text-align: center; margin-bottom: 12px;
+    letter-spacing: -0.02em;
   }
+  section h2 span { color: var(--sf-blue); }
   .section-desc {
-    text-align: center; max-width: 600px; margin: 0 auto;
-    color: var(--sf-gray); font-size: 18px; line-height: 1.6;
+    text-align: center; color: var(--sf-gray); font-size: 16px;
+    max-width: 700px; margin: 0 auto 48px; line-height: 1.6;
   }
 
-  /* ── DEMO SECTION ── */
+  /* DEMO */
   .demo-section {
     background: var(--sf-navy-mid);
     border-top: 1px solid var(--sf-border);
     border-bottom: 1px solid var(--sf-border);
   }
+  .demo-controls {
+    text-align: center; margin-bottom: 32px;
+  }
+  .btn-replay {
+    background: transparent; border: 1px solid var(--sf-gray);
+    color: var(--sf-gray); padding: 10px 24px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-replay:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
+  .question-box {
+    background: rgba(41, 128, 255, 0.06);
+    border: 1px solid rgba(41, 128, 255, 0.2);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 0 auto 32px;
+    max-width: 800px;
+    font-size: 15px;
+    color: #b8cce8;
+    text-align: center;
+  }
+  .question-box strong { color: var(--sf-blue); }
   .demo-wrapper {
-    max-width: 1200px; margin: 60px auto 0;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   .demo-panel {
-    background: var(--sf-navy);
-    border-radius: 16px;
-    border: 1px solid;
-    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
     display: flex; flex-direction: column;
-    min-height: 540px;
+    min-height: 480px;
+    overflow: hidden;
   }
-  .demo-panel.llm-panel { border-color: rgba(255,90,95,0.3); }
-  .demo-panel.sf-panel  { border-color: rgba(41,181,232,0.4); }
-
+  .demo-panel.method-1 { border-color: rgba(255,90,95,0.3); }
+  .demo-panel.method-2 { border-color: rgba(255,152,0,0.3); }
+  .demo-panel.method-3 { border-color: rgba(76,175,80,0.3); }
   .demo-header {
-    padding: 16px 20px;
+    padding: 16px 18px;
     display: flex; align-items: center; gap: 10px;
     border-bottom: 1px solid;
   }
-  .llm-panel .demo-header { background: rgba(255,90,95,0.08); border-color: rgba(255,90,95,0.2); }
-  .sf-panel  .demo-header { background: rgba(41,181,232,0.08); border-color: rgba(41,181,232,0.2); }
-
+  .method-1 .demo-header { background: rgba(255,90,95,0.06); border-color: rgba(255,90,95,0.2); }
+  .method-2 .demo-header { background: rgba(255,152,0,0.06); border-color: rgba(255,152,0,0.2); }
+  .method-3 .demo-header { background: rgba(76,175,80,0.06); border-color: rgba(76,175,80,0.2); }
   .demo-header-icon {
     width: 32px; height: 32px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     font-size: 16px;
   }
-  .llm-panel .demo-header-icon { background: rgba(255,90,95,0.15); }
-  .sf-panel  .demo-header-icon { background: rgba(41,181,232,0.15); }
-
+  .method-1 .demo-header-icon { background: rgba(255,90,95,0.15); }
+  .method-2 .demo-header-icon { background: rgba(255,152,0,0.15); }
+  .method-3 .demo-header-icon { background: rgba(76,175,80,0.15); }
   .demo-header-text { flex: 1; }
-  .demo-header-title { font-size: 14px; font-weight: 700; }
-  .llm-panel .demo-header-title { color: var(--sf-red); }
-  .sf-panel  .demo-header-title { color: var(--sf-blue); }
-  .demo-header-sub { font-size: 12px; color: var(--sf-gray); margin-top: 2px; }
-
+  .demo-header-title { font-size: 13px; font-weight: 700; }
+  .method-1 .demo-header-title { color: var(--sf-red); }
+  .method-2 .demo-header-title { color: var(--sf-orange-light); }
+  .method-3 .demo-header-title { color: var(--sf-green-light); }
+  .demo-header-sub { font-size: 11px; color: var(--sf-gray); margin-top: 2px; }
   .demo-metrics {
     display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
-    min-width: 120px;
+    min-width: 80px;
   }
   .demo-timer {
-    font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums;
-    font-family: 'Courier New', monospace;
-    line-height: 1;
+    font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums;
+    font-family: 'Courier New', monospace; line-height: 1;
   }
-  .llm-panel .demo-timer { color: var(--sf-red); }
-  .sf-panel  .demo-timer { color: var(--sf-green); }
+  .method-1 .demo-timer { color: var(--sf-red); }
+  .method-2 .demo-timer { color: var(--sf-orange-light); }
+  .method-3 .demo-timer { color: var(--sf-green-light); }
   .demo-tokens {
-    font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
-    font-family: 'Courier New', monospace;
-    opacity: 0.75; text-align: right;
+    font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums;
+    font-family: 'Courier New', monospace; opacity: 0.75; text-align: right;
   }
-  .llm-panel .demo-tokens { color: var(--sf-red); }
-  .sf-panel  .demo-tokens { color: var(--sf-green); }
+  .method-1 .demo-tokens { color: var(--sf-red); }
+  .method-2 .demo-tokens { color: var(--sf-orange-light); }
+  .method-3 .demo-tokens { color: var(--sf-green-light); }
 
-  .demo-body { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
-
+  .demo-body { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
   .demo-step {
-    display: flex; gap: 12px; align-items: flex-start;
+    display: flex; gap: 10px; align-items: flex-start;
     opacity: 0; transform: translateY(6px);
     transition: opacity 0.3s, transform 0.3s;
   }
   .demo-step.visible { opacity: 1; transform: translateY(0); }
-
   .step-icon {
-    width: 28px; height: 28px; border-radius: 50%;
+    width: 22px; height: 22px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; flex-shrink: 0; margin-top: 2px;
+    font-size: 10px; font-weight: 700; flex-shrink: 0;
   }
-  .step-icon.thinking { background: rgba(255,180,0,0.15); color: #FFB400; }
-  .step-icon.error    { background: rgba(255,90,95,0.15);  color: var(--sf-red); }
-  .step-icon.ok       { background: rgba(41,181,232,0.15); color: var(--sf-blue); }
-  .step-icon.fast     { background: rgba(30,215,96,0.15);  color: var(--sf-green); }
-
-  .step-body { flex: 1; }
-  .step-label {
-    font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
-    text-transform: uppercase; margin-bottom: 4px;
-  }
-  .step-label.thinking-label { color: #FFB400; }
-  .step-label.error-label    { color: var(--sf-red); }
-  .step-label.ok-label       { color: var(--sf-blue); }
-  .step-label.fast-label     { color: var(--sf-green); }
-
-  .step-text {
-    font-size: 13px; color: var(--sf-gray);
-    background: rgba(255,255,255,0.04);
-    border-radius: 6px; padding: 8px 12px;
-    line-height: 1.5;
-    font-family: 'Courier New', monospace;
-  }
-  .step-text.highlight {
-    background: rgba(41,181,232,0.07);
-    border: 1px solid rgba(41,181,232,0.2);
-    color: var(--sf-gray-light);
-  }
-  .step-text.highlight-bad {
-    background: rgba(255,90,95,0.07);
-    border: 1px solid rgba(255,90,95,0.2);
-  }
-
-  .thinking-dots { display: inline-flex; gap: 4px; margin-left: 4px; }
-  .thinking-dots span {
-    width: 5px; height: 5px; border-radius: 50%; background: #FFB400;
-    animation: bounce 1.2s infinite;
-  }
-  .thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+  .step-icon.thinking { background: rgba(255,152,0,0.15); color: var(--sf-orange-light); }
+  .step-icon.error { background: rgba(255,90,95,0.15); color: var(--sf-red); }
+  .step-icon.ok { background: rgba(76,175,80,0.15); color: var(--sf-green-light); }
+  .step-icon.fast { background: rgba(41,181,232,0.15); color: var(--sf-blue); }
+  .step-body { flex: 1; min-width: 0; }
+  .step-label { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
+  .step-label.error-label { color: var(--sf-red); }
+  .step-label.thinking-label { color: var(--sf-orange-light); }
+  .step-label.ok-label { color: var(--sf-green-light); }
+  .step-label.fast-label { color: var(--sf-blue); }
+  .step-text { font-size: 11px; color: var(--sf-gray); line-height: 1.4; word-break: break-word; }
+  .step-text.highlight { color: var(--sf-blue); }
+  .step-text.highlight-good { color: var(--sf-green-light); }
+  .step-text.highlight-bad { color: var(--sf-red); }
 
   .demo-result {
-    margin: 0 20px 20px;
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; font-size: 12px; font-weight: 600;
+    border-top: 1px solid rgba(255,255,255,0.05);
     opacity: 0; transition: opacity 0.5s;
-    border: 1px solid;
+    display: flex; flex-direction: column; gap: 2px;
   }
   .demo-result.visible { opacity: 1; }
-  .demo-result.fail { background: rgba(255,90,95,0.08); border-color: rgba(255,90,95,0.3); }
-  .demo-result.success { background: rgba(30,215,96,0.08); border-color: rgba(30,215,96,0.3); }
-  .result-icon { font-size: 22px; }
-  .result-text { font-size: 13px; line-height: 1.4; }
-  .result-text strong { display: block; font-size: 14px; margin-bottom: 3px; }
-  .fail .result-text strong { color: var(--sf-red); }
-  .success .result-text strong { color: var(--sf-green); }
-  .result-text span { color: var(--sf-gray); }
+  .method-1 .demo-result { background: rgba(255,90,95,0.08); }
+  .method-2 .demo-result { background: rgba(255,152,0,0.08); }
+  .method-3 .demo-result { background: rgba(76,175,80,0.08); }
+  .demo-result strong { display: block; }
+  .method-1 .demo-result strong { color: var(--sf-red); }
+  .method-2 .demo-result strong { color: var(--sf-orange-light); }
+  .method-3 .demo-result strong { color: var(--sf-green-light); }
+  .demo-result span { font-size: 11px; color: var(--sf-gray); font-weight: 400; }
 
-  .demo-controls {
-    text-align: center; margin-top: 32px;
-  }
-  .btn-replay {
-    background: var(--sf-navy-light); color: var(--sf-gray-light);
-    border: 1px solid var(--sf-border); border-radius: 8px;
-    padding: 12px 28px; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .btn-replay:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
-
-  /* ── WHY SECTION ── */
+  /* WHY SECTION */
   .why-section { background: var(--sf-navy); }
   .why-grid {
-    max-width: 1100px; margin: 60px auto 0;
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px; margin: 0 auto;
   }
   .why-card {
     background: var(--sf-navy-mid);
     border: 1px solid var(--sf-border);
-    border-radius: 16px;
-    padding: 32px 28px;
-    transition: border-color 0.2s, transform 0.2s;
+    border-radius: 12px;
+    padding: 28px;
   }
-  .why-card:hover { border-color: var(--sf-blue); transform: translateY(-4px); }
-  .why-icon {
-    width: 48px; height: 48px; border-radius: 12px;
-    background: rgba(41,181,232,0.1);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; margin-bottom: 20px;
-  }
-  .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-  .why-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.65; }
-  .why-card .tag {
-    display: inline-block; margin-top: 16px;
-    background: rgba(41,181,232,0.1); color: var(--sf-blue);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 4px;
-  }
+  .why-card-icon { font-size: 28px; margin-bottom: 12px; }
+  .why-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .why-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.6; }
 
-  /* ── VS STRIP ── */
-  .vs-section {
-    background: var(--sf-navy-mid);
-    border-top: 1px solid var(--sf-border);
-    border-bottom: 1px solid var(--sf-border);
-    padding: 80px 40px;
+  /* SPECTRUM */
+  .spectrum-section { background: var(--sf-navy-mid); border-top: 1px solid var(--sf-border); border-bottom: 1px solid var(--sf-border); }
+  .spectrum-table {
+    max-width: 1100px; margin: 0 auto;
+    border: 1px solid var(--sf-border);
+    border-radius: 12px;
+    overflow: hidden;
   }
-  .vs-table {
-    max-width: 900px; margin: 50px auto 0;
-    border: 1px solid var(--sf-border); border-radius: 16px; overflow: hidden;
+  .spectrum-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
   }
-  .vs-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid var(--sf-border);
+  .spectrum-row:last-child { border-bottom: none; }
+  .spectrum-row.header {
+    background: rgba(41,181,232,0.08);
+    font-weight: 700; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
   }
-  .vs-row:last-child { border-bottom: none; }
-  .vs-cell {
-    padding: 18px 24px;
-    font-size: 14px; line-height: 1.5;
+  .spectrum-cell {
+    padding: 14px 18px; font-size: 13px; color: var(--sf-gray-light);
+    display: flex; align-items: center;
   }
-  .vs-row.header .vs-cell {
-    font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--sf-gray); background: rgba(255,255,255,0.03);
-  }
-  .vs-cell.center { text-align: center; border-left: 1px solid var(--sf-border); border-right: 1px solid var(--sf-border); }
-  .vs-cell.label { color: var(--sf-gray-light); font-weight: 600; }
-  .vs-cell.bad { color: var(--sf-red); }
-  .vs-cell.good { color: var(--sf-green); }
-  .vs-cell.bad::before { content: "✗ "; }
-  .vs-cell.good::before { content: "✓ "; }
+  .spectrum-cell.label { font-weight: 600; color: var(--sf-white); }
+  .spectrum-cell.best { color: var(--sf-green-light); font-weight: 600; }
+  .spectrum-cell.mid { color: var(--sf-orange-light); }
+  .spectrum-cell.worst { color: var(--sf-red); }
 
-  /* ── USE CASES ── */
-  .usecases-section { background: var(--sf-navy); }
-  .uc-grid {
-    max-width: 1100px; margin: 60px auto 0;
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  /* SCALE */
+  .scale-section { background: var(--sf-navy); }
+  .scale-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px; margin: 0 auto;
   }
-  .uc-card {
+  .scale-card {
     background: var(--sf-navy-mid);
     border: 1px solid var(--sf-border);
-    border-radius: 14px; padding: 28px;
-    transition: all 0.2s;
+    border-radius: 12px;
+    padding: 32px; text-align: center;
   }
-  .uc-card:hover { border-color: var(--sf-blue); }
-  .uc-emoji { font-size: 32px; margin-bottom: 14px; }
-  .uc-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-  .uc-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.6; }
-  .uc-badge {
-    display: inline-block; margin-top: 14px;
-    background: rgba(41,181,232,0.08); color: var(--sf-blue);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
-    border: 1px solid rgba(41,181,232,0.2);
-  }
+  .scale-card .num { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+  .scale-card .num.green { color: var(--sf-green-light); }
+  .scale-card .num.blue { color: var(--sf-blue); }
+  .scale-card .label { font-size: 14px; color: var(--sf-gray); }
 
-  /* ── CTA SECTION ── */
+  /* CTA */
   .cta-section {
     background: linear-gradient(135deg, var(--sf-navy-mid) 0%, rgba(41,181,232,0.08) 100%);
-    border-top: 1px solid var(--sf-border);
-    text-align: center; padding: 100px 40px;
+    text-align: center;
+    padding: 100px 40px;
   }
-  .cta-section h2 { margin-bottom: 20px; }
-  .cta-section p { color: var(--sf-gray); font-size: 18px; max-width: 500px; margin: 0 auto 40px; line-height: 1.6; }
 
-
-  /* ── RESPONSIVE ── */
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .demo-wrapper { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .spectrum-row { grid-template-columns: 1fr; }
+    .spectrum-row.header { display: none; }
+    .scale-cards { grid-template-columns: 1fr; }
+  }
   @media (max-width: 768px) {
     section { padding: 70px 20px; }
-    .demo-wrapper { grid-template-columns: 1fr; }
-    .why-grid, .uc-grid { grid-template-columns: 1fr; }
-    .vs-table { display: none; }
     .hero-stats { gap: 30px; }
+    .why-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-
-
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-  <div class="hero-eyebrow">
+  <div class="hero-brand">
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M50 10 L90 32.5 L90 67.5 L50 90 L10 67.5 L10 32.5 Z" fill="none" stroke="#29B5E8" stroke-width="6"/>
       <path d="M50 25 L75 39 L75 61 L50 75 L25 61 L25 39 Z" fill="#29B5E8" opacity="0.3"/>
@@ -409,221 +354,214 @@
   </h1>
   <p class="hero-sub">
     Your LLM is smart — but <strong>overthinking is expensive</strong> and causes hallucinations.
-    Snowflake's Agent Platform is built inside the Data Cloud, so your agents arrive at answers
+    Every token spent discovering what your data already knows is wasted compute.
+    Snowflake's Agent Platform is built inside the Data Cloud so your agents arrive at answers
     <strong>faster, cheaper, and with confidence.</strong>
   </p>
   <div class="hero-ctas">
-    <a href="#demo" class="btn-primary">See It In Action</a>
-    <a href="#why" class="btn-secondary">Why the Ecosystem Matters →</a>
+    <a href="#demo" class="btn-primary">See the Comparison</a>
+    <a href="#why" class="btn-secondary">Why Snowflake Wins →</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">10×</div><div class="stat-label">Fewer reasoning tokens</div></div>
-    <div class="stat"><div class="stat-num">5×</div><div class="stat-label">Faster time to answer</div></div>
-    <div class="stat"><div class="stat-num">90%</div><div class="stat-label">Less hallucination risk</div></div>
+    <div class="stat"><div class="stat-num">5×</div><div class="stat-label">Faster answers</div></div>
+    <div class="stat"><div class="stat-num">60%</div><div class="stat-label">Less AI compute</div></div>
+    <div class="stat"><div class="stat-num">$430</div><div class="stat-label">Saved per 1K queries/day</div></div>
   </div>
 </div>
 
 <!-- DEMO SECTION -->
 <section class="demo-section" id="demo">
-  <div class="section-label">Live Comparison</div>
-  <h2>The Overthinking Problem — Solved</h2>
-  <p class="section-desc">Watch what happens when an LLM has to figure it all out vs. when it already knows everything it needs.</p>
+  <div class="section-label">Real Comparison · Soccer Knowledge Graph</div>
+  <h2>Three Ways to Answer <span>One Question</span></h2>
+  <p class="section-desc">All three methods get the right answer. The question is: at what cost?</p>
+
+  <div class="question-box">
+    <strong>Test Query:</strong> "Which players have indirectly worked with the same coach across different clubs?"
+  </div>
+
   <div class="demo-controls">
     <button class="btn-replay" onclick="runDemo()">↺ Replay Demo</button>
   </div>
 
   <div class="demo-wrapper">
-
-    <!-- LLM PANEL -->
-    <div class="demo-panel llm-panel">
+    <!-- METHOD 1: Raw LLM -->
+    <div class="demo-panel method-1">
       <div class="demo-header">
-        <div class="demo-header-icon">🤔</div>
+        <div class="demo-header-icon">🤖</div>
         <div class="demo-header-text">
           <div class="demo-header-title">Raw LLM + Database</div>
-          <div class="demo-header-sub">No context. No semantics. No guardrails.</div>
+          <div class="demo-header-sub">Claude Code / OpenAI Codex hitting tables directly</div>
         </div>
         <div class="demo-metrics">
-            <div class="demo-timer" id="llm-timer">0.0s</div>
-            <div class="demo-tokens" id="llm-tokens">0 tokens</div>
-          </div>
-      </div>
-      <div class="demo-body" id="llm-steps"></div>
-      <div class="demo-result fail" id="llm-result">
-        <div class="result-icon">⚠️</div>
-        <div class="result-text">
-          <strong>Slow. Expensive. Uncertain.</strong>
-          <span>24.3s elapsed · 18,400 tokens consumed · Answer may be wrong</span>
+          <div class="demo-timer" id="m1-timer">0.0s</div>
+          <div class="demo-tokens" id="m1-tokens">0 tokens</div>
         </div>
+      </div>
+      <div class="demo-body" id="m1-steps"></div>
+      <div class="demo-result" id="m1-result">
+        <strong>⚠️ Answer returned (low confidence)</strong>
+        <span>~600s · 487K tokens · $1.52 · Multiple retries · No verification</span>
       </div>
     </div>
 
-    <!-- SNOWFLAKE PANEL -->
-    <div class="demo-panel sf-panel">
+    <!-- METHOD 2: Agent + MCP + Semantics -->
+    <div class="demo-panel method-2">
+      <div class="demo-header">
+        <div class="demo-header-icon">🔧</div>
+        <div class="demo-header-text">
+          <div class="demo-header-title">Coding Agent + MCP + Semantics</div>
+          <div class="demo-header-sub">Cursor / Claude Code with semantic model</div>
+        </div>
+        <div class="demo-metrics">
+          <div class="demo-timer" id="m2-timer">0.0s</div>
+          <div class="demo-tokens" id="m2-tokens">0 tokens</div>
+        </div>
+      </div>
+      <div class="demo-body" id="m2-steps"></div>
+      <div class="demo-result" id="m2-result">
+        <strong>✓ Answer returned (medium confidence)</strong>
+        <span>333s · 272K tokens · $0.72 · 6 tool calls · Relationship discovery overhead</span>
+      </div>
+    </div>
+
+    <!-- METHOD 3: Cortex + Ontology + Semantics -->
+    <div class="demo-panel method-3">
       <div class="demo-header">
         <div class="demo-header-icon">❄️</div>
         <div class="demo-header-text">
-          <div class="demo-header-title">Snowflake Agent Platform</div>
-          <div class="demo-header-sub">Semantic layer · RBAC · Vector search · Audit</div>
+          <div class="demo-header-title">Cortex API + Ontology + Semantics</div>
+          <div class="demo-header-sub">Snowflake Cortex Agent · Sonnet 4.6</div>
         </div>
         <div class="demo-metrics">
-            <div class="demo-timer" id="sf-timer">0.0s</div>
-            <div class="demo-tokens" id="sf-tokens">0 tokens</div>
-          </div>
-      </div>
-      <div class="demo-body" id="sf-steps"></div>
-      <div class="demo-result success" id="sf-result">
-        <div class="result-icon">✅</div>
-        <div class="result-text">
-          <strong>Fast. Governed. Confident.</strong>
-          <span>2.1s elapsed · 1,200 tokens consumed · Answer verified</span>
+          <div class="demo-timer" id="m3-timer">0.0s</div>
+          <div class="demo-tokens" id="m3-tokens">0 tokens</div>
         </div>
       </div>
+      <div class="demo-body" id="m3-steps"></div>
+      <div class="demo-result" id="m3-result">
+        <strong>✓ Answer verified (high confidence)</strong>
+        <span>78s · 180K tokens · $0.29 · 1 tool call · Ontology pre-encoded relationships</span>
+      </div>
     </div>
-
   </div>
 </section>
 
-<!-- WHY SECTION -->
+<!-- SPECTRUM SECTION -->
+<section class="spectrum-section" id="spectrum">
+  <div class="section-label">Hard Metrics vs. Exploratory Questions</div>
+  <h2>Where Each Method <span>Excels</span></h2>
+  <p class="section-desc">Semantics handles metric lookups. Ontology handles relationship discovery. Together with Cortex, they eliminate the need for AI "thinking."</p>
+
+  <div class="spectrum-table">
+    <div class="spectrum-row header">
+      <div class="spectrum-cell"></div>
+      <div class="spectrum-cell">Raw LLM + DB</div>
+      <div class="spectrum-cell">Agent + MCP + Semantics</div>
+      <div class="spectrum-cell">Cortex + Ontology + Semantics</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Hard metric query</div>
+      <div class="spectrum-cell worst">Works but guesses metric definitions</div>
+      <div class="spectrum-cell best">Semantics resolves metrics instantly</div>
+      <div class="spectrum-cell best">Same — semantics handles this</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Relationship discovery</div>
+      <div class="spectrum-cell worst">Trial-and-error joins (7x reasoning)</div>
+      <div class="spectrum-cell mid">Still discovers joins via tool calls</div>
+      <div class="spectrum-cell best">Ontology pre-encodes relationships</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Cross-type queries</div>
+      <div class="spectrum-cell worst">Doesn't know Player + Coach = Person</div>
+      <div class="spectrum-cell mid">Needs explicit instructions</div>
+      <div class="spectrum-cell best">VW_ONT_PERSON spans both types</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Token efficiency</div>
+      <div class="spectrum-cell worst">487K tokens ($1.52)</div>
+      <div class="spectrum-cell mid">272K tokens ($0.72)</div>
+      <div class="spectrum-cell best">180K tokens ($0.29)</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Model required</div>
+      <div class="spectrum-cell worst">Opus (expensive) — still struggles</div>
+      <div class="spectrum-cell mid">Opus — capable but wasteful</div>
+      <div class="spectrum-cell best">Sonnet (cheaper) — outperforms Opus</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Data governance</div>
+      <div class="spectrum-cell worst">Permission errors → retries → more tokens</div>
+      <div class="spectrum-cell mid">MCP can enforce some policies</div>
+      <div class="spectrum-cell best">RBAC enforced at query time, zero retries</div>
+    </div>
+    <div class="spectrum-row">
+      <div class="spectrum-cell label">Data leaves boundary?</div>
+      <div class="spectrum-cell worst">Yes — sent to external LLM API</div>
+      <div class="spectrum-cell mid">Partially — schema/results go external</div>
+      <div class="spectrum-cell best">No — Cortex runs inside Snowflake</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SNOWFLAKE -->
 <section class="why-section" id="why">
-  <div class="section-label">Why the Ecosystem Wins</div>
-  <h2>LLM + Dataset ≠ Intelligence</h2>
-  <p class="section-desc">Pointing a model at raw data forces it to reinvent knowledge it shouldn't have to. Snowflake gives it superpowers instead.</p>
+  <div class="section-label">The Snowflake Advantage</div>
+  <h2>Why Snowflake is <span>Uniquely Positioned</span></h2>
+  <p class="section-desc">The Cortex REST API is the "brain" — it runs inside the data boundary with direct access to semantics, ontology, and governance. No other platform combines all five.</p>
+
   <div class="why-grid">
-
     <div class="why-card">
-      <div class="why-icon">📐</div>
+      <div class="why-card-icon">🧠</div>
+      <h3>Cortex REST API</h3>
+      <p>The AI brain runs inside Snowflake. No data leaves the boundary. Direct access to metadata means fewer tokens needed for context — the model already "knows" your schema.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">📐</div>
       <h3>Semantic Layer</h3>
-      <p>Pre-defined business metrics, relationships, and trusted definitions mean the LLM never has to guess what "revenue" means. It already knows — and it's always consistent.</p>
-      <span class="tag">No Guessing</span>
+      <p>Business metrics defined once, consumed everywhere. "Quarterly revenue" has one trusted definition — eliminates ambiguity that causes LLMs to guess and retry.</p>
     </div>
-
     <div class="why-card">
-      <div class="why-icon">🔒</div>
-      <h3>RBAC & Data Governance</h3>
-      <p>Role-based access control ensures agents only see data they're allowed to see. No accidental leakage, no unauthorized queries — governance runs automatically at query time.</p>
-      <span class="tag">Built-in Trust</span>
+      <div class="why-card-icon">🕸️</div>
+      <h3>Ontology Layer</h3>
+      <p>Real-world relationships (Person WORKS_FOR Organization) encoded as first-class objects. The LLM doesn't discover joins — it reads pre-computed relationship views.</p>
     </div>
-
     <div class="why-card">
-      <div class="why-icon">🔍</div>
-      <h3>Vector Search & Embeddings</h3>
-      <p>Cortex Search retrieves exactly the right context — docs, records, history — before the LLM even starts thinking. Less inference, more precision.</p>
-      <span class="tag">Smarter Context</span>
+      <div class="why-card-icon">🔒</div>
+      <h3>RBAC & Governance</h3>
+      <p>Permissions enforced at query time automatically. Zero permission-denied errors means zero retries — which means fewer wasted tokens on failed attempts.</p>
     </div>
-
     <div class="why-card">
-      <div class="why-icon">📋</div>
-      <h3>Audit Logging</h3>
-      <p>Every agent action is logged, traceable, and compliant. Know what your agent queried, when, and why. Essential for regulated industries and enterprise trust.</p>
-      <span class="tag">Full Visibility</span>
+      <div class="why-card-icon">💰</div>
+      <h3>Cost at Scale</h3>
+      <p>At 1,000 queries/day: Raw LLM costs $1,520. Cortex + Ontology costs $290. That's $1,230/day saved — or <strong>$450K/year</strong> — by encoding knowledge instead of computing it.</p>
     </div>
-
     <div class="why-card">
-      <div class="why-icon">⚡</div>
-      <h3>Cortex AI Native</h3>
-      <p>LLM inference, embeddings, and vector search run inside Snowflake — no data leaves the cloud boundary. Faster latency, lower cost, zero egress risk.</p>
-      <span class="tag">Zero Data Movement</span>
-    </div>
-
-    <div class="why-card">
-      <div class="why-icon">🌐</div>
-      <h3>Unified Data Context</h3>
-      <p>Structured tables, unstructured docs, real-time streams — all in one place. Your agent gets the full picture without stitching together 5 different systems.</p>
-      <span class="tag">One Platform</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- VS STRIP -->
-<section class="vs-section">
-  <div class="section-label">Side-by-Side</div>
-  <h2>Raw LLM vs. Snowflake Agent Platform</h2>
-  <div class="vs-table">
-    <div class="vs-row header">
-      <div class="vs-cell">Capability</div>
-      <div class="vs-cell center">Raw LLM + DB</div>
-      <div class="vs-cell">Snowflake Agent Platform</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Business context awareness</div>
-      <div class="vs-cell center bad">Infers from schema</div>
-      <div class="vs-cell good">Pre-defined semantic layer</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Access control</div>
-      <div class="vs-cell center bad">Manual, error-prone</div>
-      <div class="vs-cell good">Automatic RBAC enforcement</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Relevant context retrieval</div>
-      <div class="vs-cell center bad">Full table scan / guessing</div>
-      <div class="vs-cell good">Vector search + embeddings</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Token usage</div>
-      <div class="vs-cell center bad">Very high (schema + reasoning)</div>
-      <div class="vs-cell good">Minimal (context pre-loaded)</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Auditability</div>
-      <div class="vs-cell center bad">None</div>
-      <div class="vs-cell good">Full query + agent audit log</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Hallucination risk</div>
-      <div class="vs-cell center bad">High (no grounding)</div>
-      <div class="vs-cell good">Low (governed, grounded)</div>
-    </div>
-    <div class="vs-row">
-      <div class="vs-cell label">Time to first answer</div>
-      <div class="vs-cell center bad">15–30 seconds</div>
-      <div class="vs-cell good">1–3 seconds</div>
+      <div class="why-card-icon">⚡</div>
+      <h3>Cheaper Model Wins</h3>
+      <p>The paradox: Sonnet (cheaper, smaller) with ontology outperforms Opus (expensive, larger) without it. Knowledge architecture > raw model intelligence.</p>
     </div>
   </div>
 </section>
 
-<!-- USE CASES -->
-<section class="usecases-section" id="usecases">
-  <div class="section-label">Across Every Data Workflow</div>
-  <h2>Works Wherever Your Data Lives</h2>
-  <p class="section-desc">From raw ingestion to boardroom analytics — Snowflake's Agent Platform accelerates every layer of the data stack.</p>
-  <div class="uc-grid">
-    <div class="uc-card">
-      <div class="uc-emoji">🏗️</div>
-      <h3>Data Engineering</h3>
-      <p>Agents design pipelines, write transformations, monitor freshness, and fix failures — with full knowledge of your schema, governance rules, and data contracts.</p>
-      <span class="uc-badge">Pipeline Automation</span>
+<!-- AT SCALE -->
+<section class="scale-section">
+  <div class="section-label">The Business Case</div>
+  <h2>At 1,000 Queries Per Day</h2>
+  <p class="section-desc">As AI workloads scale, the cost gap between approaches widens exponentially. Ontology is the long-term efficiency play.</p>
+
+  <div class="scale-cards">
+    <div class="scale-card">
+      <div class="num green">$1,230</div>
+      <div class="label">Saved per day vs. raw LLM</div>
     </div>
-    <div class="uc-card">
-      <div class="uc-emoji">🏢</div>
-      <h3>Data Warehousing</h3>
-      <p>Natural language to SQL — but grounded in your semantic layer. Agents know your metrics are right before writing a single query.</p>
-      <span class="uc-badge">Text-to-SQL</span>
+    <div class="scale-card">
+      <div class="num blue">71 hrs</div>
+      <div class="label">Cumulative wait time eliminated daily</div>
     </div>
-    <div class="uc-card">
-      <div class="uc-emoji">📊</div>
-      <h3>Data Analytics</h3>
-      <p>Ask business questions, get verified answers. The semantic layer ensures "Q3 revenue" always means the same thing — no matter who asks.</p>
-      <span class="uc-badge">Self-Service BI</span>
-    </div>
-    <div class="uc-card">
-      <div class="uc-emoji">🤖</div>
-      <h3>AI/ML Workflows</h3>
-      <p>Feature engineering, model training, and inference — all within the Data Cloud. No data movement. No context loss. No extra infrastructure.</p>
-      <span class="uc-badge">MLOps Native</span>
-    </div>
-    <div class="uc-card">
-      <div class="uc-emoji">🔐</div>
-      <h3>Compliance & Risk</h3>
-      <p>Agents monitor data access patterns, flag policy violations, and generate compliance reports automatically — with full audit trail out of the box.</p>
-      <span class="uc-badge">Audit-Ready</span>
-    </div>
-    <div class="uc-card">
-      <div class="uc-emoji">📦</div>
-      <h3>Data Products</h3>
-      <p>Build governed, sharable data products with embedded semantics. Internal teams and external consumers all get the same trusted definition of your data.</p>
-      <span class="uc-badge">Data Marketplace</span>
+    <div class="scale-card">
+      <div class="num green">$450K</div>
+      <div class="label">Annual token cost savings</div>
     </div>
   </div>
 </section>
@@ -632,66 +570,88 @@
 <section class="cta-section">
   <div class="section-label">Get Started</div>
   <h2>Stop Paying for Overthinking</h2>
-  <p>Your agents deserve better context. Give them the Data Cloud.</p>
+  <p class="section-desc" style="margin-bottom:32px;">Your agents deserve knowledge architecture — not brute-force reasoning. Give them the Data Cloud.</p>
   <div class="hero-ctas">
     <a href="https://www.snowflake.com" class="btn-primary">Start Building Free</a>
   </div>
 </section>
 
-
-
 <script>
-// ── DEMO ENGINE ──
-const LLM_STEPS = [
+const M1_STEPS = [
   { delay: 400,  icon: 'thinking', label: 'thinking-label', type: 'Introspecting Schema',
-    text: 'SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_schema = \'PUBLIC\'... scanning 847 columns across 63 tables...' },
+    text: 'SELECT table_name, column_name FROM information_schema.columns WHERE table_schema = \'SOCCER_KG\'... scanning 94 columns across 12 tables...' },
   { delay: 1800, icon: 'thinking', label: 'thinking-label', type: 'Reasoning About Relationships',
-    text: 'Hmm, "revenue" could be in orders.total_amount, sales.net_revenue, or finance.recognized_rev... need to infer business logic from column names<span class="thinking-dots"><span></span><span></span><span></span></span>' },
-  { delay: 3200, icon: 'thinking', label: 'thinking-label', type: 'Guessing Metric Definitions',
-    text: 'Is "customer" join key = user_id, account_id, or customer_uuid? Trying all three combinations... generating 12 candidate SQL queries...' },
-  { delay: 5200, icon: 'error',    label: 'error-label',    type: 'Ambiguity Detected',
-    text: 'WARNING: "quarterly revenue" is ambiguous — found 4 conflicting column definitions. Choosing most likely match based on naming convention... (may be wrong)', cls: 'highlight-bad' },
-  { delay: 6800, icon: 'thinking', label: 'thinking-label', type: 'Constructing Query (Attempt 1)',
-    text: 'SELECT SUM(o.total_amount) FROM orders o JOIN customers c ON o.user_id = c.id WHERE QUARTER(o.created_at) = 3...' },
-  { delay: 8400, icon: 'error',    label: 'error-label',    type: 'Query Failed',
-    text: 'ERROR: permission denied for table orders. Retrying with alternate access path... discovering permissions by trial and error.', cls: 'highlight-bad' },
-  { delay: 9800, icon: 'thinking', label: 'thinking-label', type: 'Retrying with Sales Schema',
-    text: 'SELECT SUM(s.net_revenue) FROM sales.transactions s WHERE s.fiscal_quarter = \'Q3-2024\' AND s.status != \'refunded\'...' },
-  { delay: 11600,icon: 'thinking', label: 'thinking-label', type: 'Validating Result',
-    text: 'Result: $142,847,293 — but no confidence check available. Cannot verify against known totals. Returning with low confidence flag.<span class="thinking-dots"><span></span><span></span><span></span></span>' },
+    text: 'Need to find indirect connections... players → clubs → coaches? Checking for join keys between V_PLAYER, V_PLAYS_FOR, V_COACHES...' },
+  { delay: 3200, icon: 'error',    label: 'error-label',    type: 'Permission Denied',
+    text: 'ERROR: role "ANALYST" does not have SELECT on V_COACHES. Retrying with alternate path...', cls: 'highlight-bad' },
+  { delay: 4800, icon: 'thinking', label: 'thinking-label', type: 'Retry: Discovering Coach Contracts',
+    text: 'Found KG_EDGE with EDGE_TYPE=COACHES... attempting to reconstruct relationships from raw edges. Generating 4 candidate queries...' },
+  { delay: 6400, icon: 'error',    label: 'error-label',    type: 'Query Failed',
+    text: 'ERROR: ambiguous column reference "NODE_ID" in multi-table join. Must qualify all references...', cls: 'highlight-bad' },
+  { delay: 8000, icon: 'thinking', label: 'thinking-label', type: 'Retry #2: Qualified Join',
+    text: 'SELECT DISTINCT p1.NAME, p2.NAME, c.NAME as coach FROM KG_NODE p1 JOIN KG_EDGE e1 ON p1.NODE_ID = e1.SOURCE_ID...' },
+  { delay: 9600, icon: 'thinking', label: 'thinking-label', type: 'Building Complex Self-Join',
+    text: 'Need to self-join KG_EDGE twice: once for player→club, once for coach→club, then match overlapping clubs... 6 table join...' },
+  { delay: 11200, icon: 'thinking', label: 'thinking-label', type: 'Query Executing (Attempt 3)',
+    text: 'Running 6-table self-join across 847 edges... scanning all PLAYS_FOR and COACHES edges... computing cartesian product of coach overlap...' },
+  { delay: 13000, icon: 'thinking', label: 'thinking-label', type: 'Validating Results',
+    text: 'Got 23 rows. Cannot verify correctness — no reference data available. Confidence: LOW.' },
 ];
 
-const SF_STEPS = [
-  { delay: 200,  icon: 'ok',   label: 'ok-label',   type: 'Semantic Layer Loaded',
-    text: '"quarterly_revenue" → verified definition: SUM(net_revenue) WHERE fiscal_quarter = :quarter AND status IN (\'closed\',\'paid\'). Source: finance_metrics semantic view.', cls: 'highlight' },
-  { delay: 700,  icon: 'ok',   label: 'ok-label',   type: 'RBAC Check Passed',
-    text: 'Role ANALYST_ROLE → access granted to finance.revenue_summary. Restricted columns automatically masked. Audit event logged.', cls: 'highlight' },
-  { delay: 1100, icon: 'fast', label: 'fast-label',  type: 'Vector Search: Context Retrieved',
-    text: 'Cortex Search matched 3 relevant documents: Q3 revenue definition, fiscal calendar spec, refund exclusion policy. Injected as grounded context.', cls: 'highlight' },
-  { delay: 1500, icon: 'fast', label: 'fast-label',  type: 'Query Generated (1 attempt)',
-    text: 'SELECT quarterly_revenue FROM finance_metrics.revenue_summary WHERE fiscal_quarter = \'Q3-2024\' — 1 unambiguous query, no guessing required.', cls: 'highlight' },
-  { delay: 1900, icon: 'fast', label: 'fast-label',  type: 'Answer Verified & Returned',
-    text: 'Result: $142,847,293 ✓  Confidence: HIGH · Matches semantic layer definition · Cross-checked against audit log · Zero hallucination risk.', cls: 'highlight' },
+const M2_STEPS = [
+  { delay: 300,  icon: 'ok',    label: 'ok-label',   type: 'Semantic Model Loaded',
+    text: 'Connected to soccer_semantic_model.yml — metric definitions available for V_PLAYER, V_COACH, V_CLUB, V_PLAYS_FOR, V_COACHES.' },
+  { delay: 1200, icon: 'thinking', label: 'thinking-label', type: 'Analyzing Query Intent',
+    text: '"Indirectly worked with same coach" → need to traverse Player→Club←Coach relationships across multiple clubs. Semantic model defines entities but not cross-entity paths...' },
+  { delay: 2800, icon: 'thinking', label: 'thinking-label', type: 'Tool Call #1: Query Player Contracts',
+    text: 'Querying V_PLAYS_FOR to get all player-club associations with date ranges...' },
+  { delay: 4200, icon: 'thinking', label: 'thinking-label', type: 'Tool Call #2: Query Coach Contracts',
+    text: 'Querying V_COACHES to get all coach-club associations... need to find temporal overlap with player tenures...' },
+  { delay: 5800, icon: 'thinking', label: 'thinking-label', type: 'Tool Call #3: Cross-Reference',
+    text: 'Building join: players at Club A while Coach X was there, then players at Club B while Coach X moved there... 19,828 orchestration tokens spent reasoning about path...' },
+  { delay: 7400, icon: 'thinking', label: 'thinking-label', type: 'Tool Calls #4-6: Iterating',
+    text: 'Refining joins... adding temporal constraints... deduplicating results... each iteration adds reasoning overhead.' },
+  { delay: 9000, icon: 'ok',    label: 'ok-label',   type: 'Result Assembled',
+    text: 'Answer found via 6 tool calls. Semantics helped with metric definitions but relationship discovery still required trial-and-error.' },
 ];
 
-let llmInterval = null, sfInterval = null;
-let llmTimerInterval = null, sfTimerInterval = null;
-let llmTokenInterval = null, sfTokenInterval = null;
+const M3_STEPS = [
+  { delay: 200,  icon: 'fast', label: 'fast-label', type: 'Ontology Loaded',
+    text: 'VW_ONT_WORKS_FOR already encodes "Person works for Organization" — spanning both Player and Coach subtypes. No discovery needed.', cls: 'highlight-good' },
+  { delay: 600,  icon: 'ok',   label: 'ok-label',   type: 'RBAC Verified',
+    text: 'Role ANALYST_ROLE → full access to ontology views. Audit event logged. Zero permission friction.', cls: 'highlight-good' },
+  { delay: 1000, icon: 'fast', label: 'fast-label', type: 'Single Cortex Analyst Call',
+    text: 'Routing to soccer_semantic_model_ontology.yml → VW_ONT_WORKS_FOR self-join on OBJECT_ID (club). 1 query, 0 retries.', cls: 'highlight-good' },
+  { delay: 1400, icon: 'fast', label: 'fast-label', type: 'Query Generated & Executed',
+    text: 'SELECT p1.NAME, p2.NAME, coach.NAME FROM VW_ONT_WORKS_FOR wf1 JOIN VW_ONT_WORKS_FOR wf2 ON wf1.OBJECT_ID = wf2.OBJECT_ID WHERE wf1.SUBJECT_SUBTYPE = \'Player\' AND wf2.SUBJECT_SUBTYPE = \'Coach\'...', cls: 'highlight-good' },
+  { delay: 1800, icon: 'fast', label: 'fast-label', type: 'Answer Verified',
+    text: 'Result: 23 player pairs confirmed. Confidence: HIGH. Cross-checked against ontology constraint rules. 2,743 orchestration tokens total.', cls: 'highlight-good' },
+];
+
+let m1TimerIv, m2TimerIv, m3TimerIv, m1TokenIv, m2TokenIv, m3TokenIv;
 let demoRunning = false;
 
 function clearDemo() {
-  document.getElementById('llm-steps').innerHTML = '';
-  document.getElementById('sf-steps').innerHTML = '';
-  document.getElementById('llm-result').classList.remove('visible');
-  document.getElementById('sf-result').classList.remove('visible');
-  document.getElementById('llm-timer').textContent = '0.0s';
-  document.getElementById('sf-timer').textContent = '0.0s';
-  document.getElementById('llm-tokens').textContent = '0 tokens';
-  document.getElementById('sf-tokens').textContent = '0 tokens';
-  if (llmTimerInterval) clearInterval(llmTimerInterval);
-  if (sfTimerInterval)  clearInterval(sfTimerInterval);
-  if (llmTokenInterval) clearInterval(llmTokenInterval);
-  if (sfTokenInterval)  clearInterval(sfTokenInterval);
+  ['m1-steps','m2-steps','m3-steps'].forEach(id => document.getElementById(id).innerHTML = '');
+  ['m1-result','m2-result','m3-result'].forEach(id => document.getElementById(id).classList.remove('visible'));
+  document.getElementById('m1-timer').textContent = '0.0s';
+  document.getElementById('m2-timer').textContent = '0.0s';
+  document.getElementById('m3-timer').textContent = '0.0s';
+  document.getElementById('m1-tokens').textContent = '0 tokens';
+  document.getElementById('m2-tokens').textContent = '0 tokens';
+  document.getElementById('m3-tokens').textContent = '0 tokens';
+  [m1TimerIv, m2TimerIv, m3TimerIv, m1TokenIv, m2TokenIv, m3TokenIv].forEach(iv => { if(iv) clearInterval(iv); });
+}
+
+function startTimer(elId, maxVal, speed, onDone) {
+  let t = 0;
+  const el = document.getElementById(elId);
+  const iv = setInterval(() => {
+    t += speed;
+    if (t >= maxVal) { t = maxVal; clearInterval(iv); if(onDone) onDone(); }
+    el.textContent = t.toFixed(1) + 's';
+  }, 100);
+  return iv;
 }
 
 function startTokenCounter(elId, maxVal, speed) {
@@ -701,17 +661,6 @@ function startTokenCounter(elId, maxVal, speed) {
     t = Math.min(t + speed, maxVal);
     el.textContent = Math.round(t).toLocaleString() + ' tokens';
     if (t >= maxVal) clearInterval(iv);
-  }, 100);
-  return iv;
-}
-
-function startTimer(elId, maxVal, speed, onDone) {
-  let t = 0;
-  const el = document.getElementById(elId);
-  const iv = setInterval(() => {
-    t += speed;
-    el.textContent = t.toFixed(1) + 's';
-    if (t >= maxVal) { clearInterval(iv); if (onDone) onDone(); }
   }, 100);
   return iv;
 }
@@ -738,28 +687,21 @@ function runDemo() {
   demoRunning = true;
   clearDemo();
 
-  // LLM side — slow, painful
-  LLM_STEPS.forEach(step => {
-    setTimeout(() => addStep('llm-steps', step), step.delay * 1.2);
-  });
-  llmTimerInterval = startTimer('llm-timer', 24.3, 0.2, () => {
-    document.getElementById('llm-result').classList.add('visible');
-  });
-  llmTokenInterval = startTokenCounter('llm-tokens', 18400, 152);
+  M1_STEPS.forEach(step => { setTimeout(() => addStep('m1-steps', step), step.delay); });
+  m1TimerIv = startTimer('m1-timer', 600, 4.0, () => { document.getElementById('m1-result').classList.add('visible'); });
+  m1TokenIv = startTokenCounter('m1-tokens', 487000, 3200);
 
-  // Snowflake side — fast, confident
-  SF_STEPS.forEach(step => {
-    setTimeout(() => addStep('sf-steps', step), step.delay);
-  });
-  sfTimerInterval = startTimer('sf-timer', 2.1, 0.1, () => {
-    document.getElementById('sf-result').classList.add('visible');
-  });
-  sfTokenInterval = startTokenCounter('sf-tokens', 1200, 57);
+  M2_STEPS.forEach(step => { setTimeout(() => addStep('m2-steps', step), step.delay); });
+  m2TimerIv = startTimer('m2-timer', 333, 2.2, () => { document.getElementById('m2-result').classList.add('visible'); });
+  m2TokenIv = startTokenCounter('m2-tokens', 272000, 1800);
 
-  setTimeout(() => { demoRunning = false; }, 14000);
+  M3_STEPS.forEach(step => { setTimeout(() => addStep('m3-steps', step), step.delay); });
+  m3TimerIv = startTimer('m3-timer', 78, 0.5, () => { document.getElementById('m3-result').classList.add('visible'); });
+  m3TokenIv = startTokenCounter('m3-tokens', 180000, 1200);
+
+  setTimeout(() => { demoRunning = false; }, 16000);
 }
 
-// Auto-run when scrolled into view
 const demoSection = document.getElementById('demo');
 let demoPlayed = false;
 const observer = new IntersectionObserver(entries => {
