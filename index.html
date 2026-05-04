@@ -266,57 +266,104 @@
   .why-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
   .why-card p { font-size: 14px; color: var(--sf-gray); line-height: 1.6; }
 
-  /* DATA TABLES */
-  .tables-section { background: var(--sf-navy); }
-  .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1300px; margin: 0 auto;
+  /* JOURNEY */
+  .journey-section { background: var(--sf-navy); }
+  .journey-container {
+    max-width: 900px; margin: 0 auto; position: relative;
   }
-  .table-card {
+  .journey-nav {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 40px;
+  }
+  .journey-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .journey-dot.active { background: var(--sf-blue); transform: scale(1.3); }
+  .journey-dot.done { background: rgba(41,181,232,0.4); }
+  .journey-arrow {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--sf-border);
+    background: transparent; color: var(--sf-gray); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    transition: all 0.2s; margin: 0 12px;
+  }
+  .journey-arrow:hover { border-color: var(--sf-blue); color: var(--sf-blue); }
+  .journey-step {
+    display: none; animation: fadeStep 0.4s ease;
+  }
+  .journey-step.active { display: block; }
+  @keyframes fadeStep { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .step-card {
     background: var(--sf-navy-mid);
     border: 1px solid var(--sf-border);
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
   }
-  .table-card.red { border-color: rgba(255,90,95,0.3); }
-  .table-card.orange { border-color: rgba(255,152,0,0.3); }
-  .table-card.green { border-color: rgba(76,175,80,0.3); }
-  .table-card-header {
-    padding: 16px 20px;
-    font-weight: 700; font-size: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+  .step-header {
+    padding: 24px 32px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; gap: 16px;
   }
-  .table-card.red .table-card-header { color: var(--sf-red); background: rgba(255,90,95,0.05); }
-  .table-card.orange .table-card-header { color: var(--sf-orange-light); background: rgba(255,152,0,0.05); }
-  .table-card.green .table-card-header { color: var(--sf-green-light); background: rgba(76,175,80,0.05); }
-  .table-card-sub { font-size: 12px; color: var(--sf-gray); font-weight: 400; margin-top: 4px; }
-  .table-card-body { padding: 16px 20px; }
-  .mini-table {
-    width: 100%; border-collapse: collapse; font-size: 11px;
-    margin-bottom: 12px;
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(41,181,232,0.15); color: var(--sf-blue);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
   }
-  .mini-table caption {
-    text-align: left; font-size: 11px; font-weight: 600;
-    color: var(--sf-gray-light); margin-bottom: 6px; letter-spacing: 0.3px;
+  .step-title { font-size: 18px; font-weight: 700; }
+  .step-subtitle { font-size: 13px; color: var(--sf-gray); margin-top: 2px; }
+  .step-body { padding: 28px 32px; }
+  .step-visual {
+    background: rgba(0,0,0,0.2); border-radius: 10px;
+    padding: 20px 24px; margin-bottom: 20px; overflow-x: auto;
   }
-  .mini-table th {
-    text-align: left; padding: 5px 8px; font-weight: 600;
+  .step-visual table {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+  }
+  .step-visual caption {
+    text-align: left; font-size: 12px; font-weight: 700;
+    color: var(--sf-gray-light); margin-bottom: 8px;
+  }
+  .step-visual th {
+    text-align: left; padding: 6px 10px; font-weight: 600;
     color: var(--sf-gray); font-size: 10px; text-transform: uppercase;
-    letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.1);
   }
-  .mini-table td {
-    padding: 5px 8px; color: var(--sf-gray-light); font-size: 11px;
+  .step-visual td {
+    padding: 6px 10px; color: var(--sf-gray-light);
     border-bottom: 1px solid rgba(255,255,255,0.03);
   }
-  .mini-table tr:last-child td { border-bottom: none; }
-  .table-card-insight {
-    font-size: 12px; color: var(--sf-gray); line-height: 1.5;
-    padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.05);
-    background: rgba(0,0,0,0.15);
+  .step-visual tr:last-child td { border-bottom: none; }
+  .step-explain {
+    font-size: 15px; line-height: 1.7; color: var(--sf-gray-light);
   }
-  .table-card-insight strong { color: var(--sf-white); }
+  .step-explain strong { color: var(--sf-white); }
+  .step-callout {
+    margin-top: 20px; padding: 14px 20px;
+    border-left: 3px solid var(--sf-blue);
+    background: rgba(41,181,232,0.05);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; color: #b8cce8; line-height: 1.5;
+  }
+  .step-callout.green { border-left-color: var(--sf-green-light); background: rgba(76,175,80,0.05); }
+  .step-callout.orange { border-left-color: var(--sf-orange-light); background: rgba(255,152,0,0.05); }
+  .step-callout.red { border-left-color: var(--sf-red); background: rgba(255,90,95,0.05); }
+  .step-examples {
+    display: flex; flex-direction: column; gap: 8px;
+    margin: 16px 0;
+  }
+  .step-example {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--sf-gray-light);
+    padding: 8px 12px; background: rgba(76,175,80,0.06);
+    border-radius: 6px; border: 1px solid rgba(76,175,80,0.15);
+  }
+  .step-example .check { color: var(--sf-green-light); font-weight: 700; }
+  .step-example.fail {
+    background: rgba(255,152,0,0.06);
+    border-color: rgba(255,152,0,0.15);
+  }
+  .step-example.fail .check { color: var(--sf-orange-light); }
 
   /* SPECTRUM */
   .spectrum-section { background: var(--sf-navy-mid); border-top: 1px solid var(--sf-border); border-bottom: 1px solid var(--sf-border); }
@@ -375,7 +422,7 @@
   /* RESPONSIVE */
   @media (max-width: 1024px) {
     .demo-wrapper { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-    .tables-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .journey-container { padding: 0 10px; }
     .spectrum-row { grid-template-columns: 1fr; }
     .spectrum-row.header { display: none; }
     .scale-cards { grid-template-columns: 1fr; }
@@ -499,98 +546,209 @@
   </div>
 </section>
 
-<!-- DATA TABLES: What Each Method Sees -->
-<section class="tables-section">
-  <div class="section-label">What Each Method Sees</div>
+<!-- JOURNEY: The Data Maturity Story -->
+<section class="journey-section" id="journey">
+  <div class="section-label">The Path to Efficient AI</div>
   <h2>Same Data, <span>Different Context</span></h2>
-  <p class="section-desc">The LLM's "thinking" is determined by how much context it receives upfront. More structure = less discovery = fewer tokens.</p>
+  <p class="section-desc">Watch how adding layers of knowledge progressively eliminates AI overthinking — and how Snowflake's platform makes each layer possible.</p>
 
-  <div class="tables-grid">
-    <!-- RAW TABLES -->
-    <div class="table-card red">
-      <div class="table-card-header">
-        Method 1: AI Coding Agent
-        <div class="table-card-sub">No semantics, no relationships. Just columns.</div>
-      </div>
-      <div class="table-card-body">
-        <table class="mini-table">
-          <caption>KG_NODE (87 rows)</caption>
-          <tr><th>node_id</th><th>node_type</th><th>properties</th></tr>
-          <tr><td>n_001</td><td>PLAYER</td><td>{"name":"Messi",...}</td></tr>
-          <tr><td>n_042</td><td>COACH</td><td>{"name":"Guardiola",...}</td></tr>
-          <tr><td>n_056</td><td>CLUB</td><td>{"name":"Barcelona",...}</td></tr>
-        </table>
-        <table class="mini-table">
-          <caption>KG_EDGE (847 rows)</caption>
-          <tr><th>source_id</th><th>target_id</th><th>edge_type</th></tr>
-          <tr><td>n_001</td><td>n_056</td><td>PLAYS_FOR</td></tr>
-          <tr><td>n_042</td><td>n_056</td><td>COACHES</td></tr>
-          <tr><td>n_001</td><td>m_012</td><td>PLAYED_IN</td></tr>
-        </table>
-      </div>
-      <div class="table-card-insight">
-        The LLM must <strong>introspect all 94 columns</strong>, guess that PLAYS_FOR and COACHES share target_id as a join key, and figure out that "working with the same coach" means traversing source→target←source.
+  <div class="journey-container">
+    <div class="journey-nav">
+      <button class="journey-arrow" onclick="journeyPrev()">←</button>
+      <button class="journey-dot active" onclick="journeyGo(0)"></button>
+      <button class="journey-dot" onclick="journeyGo(1)"></button>
+      <button class="journey-dot" onclick="journeyGo(2)"></button>
+      <button class="journey-dot" onclick="journeyGo(3)"></button>
+      <button class="journey-dot" onclick="journeyGo(4)"></button>
+      <button class="journey-dot" onclick="journeyGo(5)"></button>
+      <button class="journey-arrow" onclick="journeyNext()">→</button>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="journey-step active" data-step="0">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div><div class="step-title">You have raw data in Snowflake</div>
+          <div class="step-subtitle">Tables with IDs, types, and JSON blobs. No business meaning attached.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-visual">
+            <table>
+              <caption>KG_NODE — 87 rows of entities</caption>
+              <tr><th>node_id</th><th>node_type</th><th>properties (JSON)</th></tr>
+              <tr><td>n_001</td><td>PLAYER</td><td>{"name":"Messi","pos":"FW","nat":"ARG"}</td></tr>
+              <tr><td>n_042</td><td>COACH</td><td>{"name":"Guardiola","nationality":"ESP"}</td></tr>
+              <tr><td>n_056</td><td>CLUB</td><td>{"name":"Barcelona","league":"La Liga"}</td></tr>
+              <tr><td>n_063</td><td>MATCH</td><td>{"date":"2024-03-10","score":"2-1"}</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>KG_EDGE — 847 rows of relationships</caption>
+              <tr><th>source_id</th><th>target_id</th><th>edge_type</th><th>properties</th></tr>
+              <tr><td>n_001</td><td>n_056</td><td>PLAYS_FOR</td><td>{"start":"2004-07"}</td></tr>
+              <tr><td>n_042</td><td>n_056</td><td>COACHES</td><td>{"start":"2008-06"}</td></tr>
+              <tr><td>n_001</td><td>n_063</td><td>PLAYED_IN</td><td>{"goals":2}</td></tr>
+            </table>
+          </div>
+          <p class="step-explain">This is what your soccer data looks like in Snowflake — <strong>players, coaches, clubs, and matches</strong> stored as nodes and edges. It's flexible and powerful, but meaningless to an AI without context.</p>
+        </div>
       </div>
     </div>
 
-    <!-- SEMANTIC TABLES -->
-    <div class="table-card orange">
-      <div class="table-card-header">
-        Method 2: Semantic Views
-        <div class="table-card-sub">Named entities with business meaning.</div>
-      </div>
-      <div class="table-card-body">
-        <table class="mini-table">
-          <caption>V_PLAYER (41 rows)</caption>
-          <tr><th>name</th><th>position</th><th>nationality</th></tr>
-          <tr><td>Lionel Messi</td><td>Forward</td><td>Argentina</td></tr>
-          <tr><td>Pedri</td><td>Midfielder</td><td>Spain</td></tr>
-          <tr><td>Erling Haaland</td><td>Forward</td><td>Norway</td></tr>
-        </table>
-        <table class="mini-table">
-          <caption>V_PLAYS_FOR</caption>
-          <tr><th>player_name</th><th>club_name</th><th>start_date</th></tr>
-          <tr><td>Messi</td><td>Barcelona</td><td>2004-07-01</td></tr>
-          <tr><td>Messi</td><td>PSG</td><td>2021-08-10</td></tr>
-          <tr><td>Haaland</td><td>Man City</td><td>2022-07-01</td></tr>
-        </table>
-        <table class="mini-table">
-          <caption>V_COACHES</caption>
-          <tr><th>coach_name</th><th>club_name</th><th>start_date</th></tr>
-          <tr><td>Guardiola</td><td>Barcelona</td><td>2008-06-01</td></tr>
-          <tr><td>Guardiola</td><td>Man City</td><td>2016-07-01</td></tr>
-        </table>
-      </div>
-      <div class="table-card-insight">
-        Semantics gives named columns — but the LLM still must <strong>reason through 6 tool calls</strong> to discover that V_PLAYS_FOR and V_COACHES share club_name as the bridge between players and coaches.
+    <!-- STEP 2 -->
+    <div class="journey-step" data-step="1">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div><div class="step-title">AI Coding Agent hits it directly</div>
+          <div class="step-subtitle">No semantic layer. No relationships. The agent must figure everything out alone.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-visual">
+            <table>
+              <caption>What the AI sees: information_schema.columns (94 columns)</caption>
+              <tr><th>table</th><th>column</th><th>type</th></tr>
+              <tr><td>KG_NODE</td><td>NODE_ID</td><td>VARCHAR</td></tr>
+              <tr><td>KG_NODE</td><td>NODE_TYPE</td><td>VARCHAR</td></tr>
+              <tr><td>KG_NODE</td><td>PROPERTIES</td><td>VARIANT</td></tr>
+              <tr><td>KG_EDGE</td><td>SOURCE_ID</td><td>VARCHAR</td></tr>
+              <tr><td>KG_EDGE</td><td>TARGET_ID</td><td>VARCHAR</td></tr>
+              <tr><td>KG_EDGE</td><td>EDGE_TYPE</td><td>VARCHAR</td></tr>
+              <tr><td colspan="3" style="color:var(--sf-gray);font-style:italic;">...88 more columns across 12 tables...</td></tr>
+            </table>
+          </div>
+          <p class="step-explain">The AI Coding Agent (Claude Code, Cursor, OpenAI Codex) sees <strong>raw column names and types</strong>. It has no idea that "n_001" is Messi, that PLAYS_FOR connects players to clubs, or how to traverse from a player to a coach.</p>
+          <div class="step-callout red">
+            <strong>Every question requires full schema discovery.</strong> The agent must guess join keys, handle permission errors, and retry failed queries. No layer exists to prevent overthinking.
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- ONTOLOGY TABLES -->
-    <div class="table-card green">
-      <div class="table-card-header">
-        Method 3: Ontology + Semantic Views
-        <div class="table-card-sub">Relationships pre-encoded as first-class objects.</div>
+    <!-- STEP 3 -->
+    <div class="journey-step" data-step="2">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div><div class="step-title">AI helps build a Semantic Model</div>
+          <div class="step-subtitle">LLMs + business experts define what the data means — creating named views with business logic.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-visual">
+            <table>
+              <caption>V_PLAYER — Players with real names and attributes</caption>
+              <tr><th>name</th><th>position</th><th>nationality</th><th>age</th></tr>
+              <tr><td>Lionel Messi</td><td>Forward</td><td>Argentina</td><td>36</td></tr>
+              <tr><td>Erling Haaland</td><td>Forward</td><td>Norway</td><td>23</td></tr>
+              <tr><td>Pedri</td><td>Midfielder</td><td>Spain</td><td>21</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>V_PLAYS_FOR — Player-Club contracts</caption>
+              <tr><th>player_name</th><th>club_name</th><th>start_date</th><th>end_date</th></tr>
+              <tr><td>Messi</td><td>Barcelona</td><td>2004-07-01</td><td>2021-06-30</td></tr>
+              <tr><td>Messi</td><td>PSG</td><td>2021-08-10</td><td>2023-06-30</td></tr>
+              <tr><td>Haaland</td><td>Man City</td><td>2022-07-01</td><td>—</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>V_COACHES — Coach-Club assignments</caption>
+              <tr><th>coach_name</th><th>club_name</th><th>start_date</th><th>end_date</th></tr>
+              <tr><td>Guardiola</td><td>Barcelona</td><td>2008-06-01</td><td>2012-06-30</td></tr>
+              <tr><td>Guardiola</td><td>Man City</td><td>2016-07-01</td><td>—</td></tr>
+            </table>
+          </div>
+          <p class="step-explain">AI assists business experts in defining <strong>what "player" means, what "plays for" means, what "coach" means</strong>. Raw IDs become human-readable views with clear column names. This is the Semantic Layer on Snowflake.</p>
+          <div class="step-callout">
+            <strong>Cortex Analyst</strong> can now use these semantic models to understand metric definitions. The AI no longer guesses what columns mean.
+          </div>
+        </div>
       </div>
-      <div class="table-card-body">
-        <table class="mini-table">
-          <caption>VW_ONT_PERSON (52 rows — Players + Coaches)</caption>
-          <tr><th>name</th><th>subtype</th><th>organization</th></tr>
-          <tr><td>Lionel Messi</td><td>Player</td><td>Barcelona</td></tr>
-          <tr><td>Pep Guardiola</td><td>Coach</td><td>Barcelona</td></tr>
-          <tr><td>Erling Haaland</td><td>Player</td><td>Man City</td></tr>
-        </table>
-        <table class="mini-table">
-          <caption>VW_ONT_WORKS_FOR (pre-encoded relationship)</caption>
-          <tr><th>person_name</th><th>role</th><th>organization</th></tr>
-          <tr><td>Messi</td><td>Player</td><td>Barcelona</td></tr>
-          <tr><td>Guardiola</td><td>Coach</td><td>Barcelona</td></tr>
-          <tr><td>Guardiola</td><td>Coach</td><td>Man City</td></tr>
-          <tr><td>Haaland</td><td>Player</td><td>Man City</td></tr>
-        </table>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="journey-step" data-step="3">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div><div class="step-title">Semantics makes many questions instant</div>
+          <div class="step-subtitle">Hard metric lookups are now trivial — the semantic model eliminates ambiguity.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-examples">
+            <div class="step-example"><span class="check">✓</span> "Who plays for Real Madrid?" → <strong>V_PLAYS_FOR instant lookup</strong></div>
+            <div class="step-example"><span class="check">✓</span> "How many goals did Messi score?" → <strong>V_PLAYED_IN aggregation</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Which coaches managed Barcelona?" → <strong>V_COACHES filtered query</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Show me all matches in March 2024" → <strong>V_MATCH date filter</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Top scorers by nationality" → <strong>GROUP BY on V_PLAYER + V_PLAYED_IN</strong></div>
+          </div>
+          <p class="step-explain">For <strong>concrete, metric-based questions</strong>, semantics is transformative. Each question maps directly to a known view with clear columns. Zero ambiguity = zero overthinking = fast, cheap answers.</p>
+          <div class="step-callout green">
+            <strong>These questions now cost ~$0.05 each</strong> via Cortex Analyst — the semantic model resolves the intent in a single tool call with no retries needed.
+          </div>
+        </div>
       </div>
-      <div class="table-card-insight">
-        <strong>One self-join on VW_ONT_WORKS_FOR</strong> answers the question directly. "Person works for Organization" is already encoded — the LLM reads, not discovers. 1 tool call. Done.
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="journey-step" data-step="4">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div><div class="step-title">But exploratory questions still struggle</div>
+          <div class="step-subtitle">When the question involves relationships across tables, the LLM must discover the path.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-callout orange" style="margin-top:0;margin-bottom:20px;">
+            <strong>"Which players have indirectly worked with the same coach across different clubs?"</strong>
+          </div>
+          <div class="step-visual">
+            <table>
+              <caption>The LLM's reasoning chain (6 tool calls, 333 seconds)</caption>
+              <tr><th>Step</th><th>Action</th><th>Problem</th></tr>
+              <tr><td>1</td><td>Query V_PLAYS_FOR</td><td>Gets player→club links</td></tr>
+              <tr><td>2</td><td>Query V_COACHES</td><td>Gets coach→club links</td></tr>
+              <tr><td>3</td><td>Try to cross-reference</td><td>Must discover that club_name bridges both tables</td></tr>
+              <tr><td>4</td><td>Build temporal overlap logic</td><td>Spent 19,828 reasoning tokens figuring this out</td></tr>
+              <tr><td>5</td><td>Handle edge cases</td><td>What about coaches who moved clubs?</td></tr>
+              <tr><td>6</td><td>Assemble final result</td><td>272K tokens total · $0.72 · Medium confidence</td></tr>
+            </table>
+          </div>
+          <p class="step-explain">V_PLAYS_FOR and V_COACHES are <strong>separate tables</strong>. The semantic model defines each entity, but doesn't encode the relationship <em>"Person works for Organization"</em> as a single traversable concept. The LLM must <strong>discover</strong> that `club_name` is the bridge — through trial and error.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="journey-step" data-step="5">
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">6</div>
+          <div><div class="step-title">AI + Business Experts build an Ontology</div>
+          <div class="step-subtitle">Relationships are encoded as first-class objects. The LLM reads — it never discovers.</div></div>
+        </div>
+        <div class="step-body">
+          <div class="step-visual">
+            <table>
+              <caption>VW_ONT_PERSON — Players AND Coaches unified</caption>
+              <tr><th>name</th><th>subtype</th><th>organization</th></tr>
+              <tr><td>Lionel Messi</td><td>Player</td><td>Barcelona</td></tr>
+              <tr><td>Pep Guardiola</td><td>Coach</td><td>Barcelona</td></tr>
+              <tr><td>Erling Haaland</td><td>Player</td><td>Man City</td></tr>
+              <tr><td>Pep Guardiola</td><td>Coach</td><td>Man City</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>VW_ONT_WORKS_FOR — "Person works for Organization" (pre-encoded)</caption>
+              <tr><th>person_name</th><th>role</th><th>organization</th><th>period</th></tr>
+              <tr><td>Messi</td><td>Player</td><td>Barcelona</td><td>2004–2021</td></tr>
+              <tr><td>Guardiola</td><td>Coach</td><td>Barcelona</td><td>2008–2012</td></tr>
+              <tr><td>Guardiola</td><td>Coach</td><td>Man City</td><td>2016–now</td></tr>
+              <tr><td>Haaland</td><td>Player</td><td>Man City</td><td>2022–now</td></tr>
+            </table>
+          </div>
+          <p class="step-explain">LLMs assist business experts in defining ontology relationships: <strong>"Person WORKS_FOR Organization"</strong> becomes a view where Players and Coaches are both People. One self-join on `VW_ONT_WORKS_FOR` answers the original question — <strong>1 tool call, 78 seconds, $0.29.</strong></p>
+          <div class="step-callout green">
+            <strong>A cheaper, smaller model (Sonnet) with ontology outperforms a more expensive model (Opus) without it.</strong> Snowflake's platform hosts data + semantics + ontology in one boundary — Cortex runs inside with zero data movement.
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -863,6 +1021,45 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.3 });
 observer.observe(demoSection);
+
+// ── JOURNEY NAVIGATION ──
+let currentStep = 0;
+const totalSteps = 6;
+const steps = document.querySelectorAll('.journey-step');
+const dots = document.querySelectorAll('.journey-dot');
+
+function journeyGo(idx) {
+  if (idx < 0 || idx >= totalSteps) return;
+  steps[currentStep].classList.remove('active');
+  dots[currentStep].classList.remove('active');
+  dots[currentStep].classList.add('done');
+  currentStep = idx;
+  steps[currentStep].classList.add('active');
+  dots.forEach((d, i) => {
+    d.classList.toggle('active', i === currentStep);
+    d.classList.toggle('done', i < currentStep);
+  });
+}
+function journeyNext() { journeyGo(Math.min(currentStep + 1, totalSteps - 1)); }
+function journeyPrev() { journeyGo(Math.max(currentStep - 1, 0)); }
+
+// Auto-advance on scroll into view
+const journeySection = document.getElementById('journey');
+let journeyStarted = false;
+const journeyObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !journeyStarted) {
+      journeyStarted = true;
+      let step = 0;
+      const iv = setInterval(() => {
+        step++;
+        if (step >= totalSteps) { clearInterval(iv); return; }
+        journeyGo(step);
+      }, 4000);
+    }
+  });
+}, { threshold: 0.4 });
+journeyObs.observe(journeySection);
 </script>
 </body>
 </html>
