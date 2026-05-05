@@ -1052,23 +1052,6 @@ function journeyGo(idx) {
 function journeyNext() { journeyGo(Math.min(currentStep + 1, totalSteps - 1)); }
 function journeyPrev() { journeyGo(Math.max(currentStep - 1, 0)); }
 
-// Auto-advance on scroll into view
-const journeySection = document.getElementById('journey');
-let journeyStarted = false;
-const journeyObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !journeyStarted) {
-      journeyStarted = true;
-      let step = 0;
-      const iv = setInterval(() => {
-        step++;
-        if (step >= totalSteps) { clearInterval(iv); return; }
-        journeyGo(step);
-      }, 4000);
-    }
-  });
-}, { threshold: 0.4 });
-journeyObs.observe(journeySection);
 </script>
 </body>
 </html>
