@@ -546,11 +546,11 @@
   </div>
 </section>
 
-<!-- JOURNEY: The Data Maturity Story -->
+<!-- JOURNEY: Two Scenarios -->
 <section class="journey-section" id="journey">
   <div class="section-label">The Path to Efficient AI</div>
   <h2>Same Data, <span>Different Context</span></h2>
-  <p class="section-desc">Watch how adding layers of knowledge progressively eliminates AI overthinking — and how Snowflake's platform makes each layer possible.</p>
+  <p class="section-desc">Two ways to store soccer data in Snowflake. Same information — but one is built for AI reasoning.</p>
 
   <div class="journey-container">
     <div class="journey-nav">
@@ -564,137 +564,136 @@
       <button class="journey-arrow" onclick="journeyNext()">→</button>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1: Scenario A — Raw Tables -->
     <div class="journey-step active" data-step="0">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">1</div>
-          <div><div class="step-title">You have raw data in Snowflake</div>
-          <div class="step-subtitle">Tables with IDs, types, and JSON blobs. No business meaning attached.</div></div>
+          <div><div class="step-title">Scenario A: Traditional Relational Tables</div>
+          <div class="step-subtitle">Standard normalized schema. What most teams build first.</div></div>
         </div>
         <div class="step-body">
-          <div class="step-visual">
-            <table>
-              <caption>KG_NODE — 87 rows of entities</caption>
-              <tr><th>node_id</th><th>node_type</th><th>properties (JSON)</th></tr>
-              <tr><td>n_001</td><td>PLAYER</td><td>{"name":"Messi","pos":"FW","nat":"ARG"}</td></tr>
-              <tr><td>n_042</td><td>COACH</td><td>{"name":"Guardiola","nationality":"ESP"}</td></tr>
-              <tr><td>n_056</td><td>CLUB</td><td>{"name":"Barcelona","league":"La Liga"}</td></tr>
-              <tr><td>n_063</td><td>MATCH</td><td>{"date":"2024-03-10","score":"2-1"}</td></tr>
-            </table>
-            <table style="margin-top:16px;">
-              <caption>KG_EDGE — 847 rows of relationships</caption>
-              <tr><th>source_id</th><th>target_id</th><th>edge_type</th><th>properties</th></tr>
-              <tr><td>n_001</td><td>n_056</td><td>PLAYS_FOR</td><td>{"start":"2004-07"}</td></tr>
-              <tr><td>n_042</td><td>n_056</td><td>COACHES</td><td>{"start":"2008-06"}</td></tr>
-              <tr><td>n_001</td><td>n_063</td><td>PLAYED_IN</td><td>{"goals":2}</td></tr>
-            </table>
-          </div>
-          <p class="step-explain">This is what your soccer data looks like in Snowflake — <strong>players, coaches, clubs, and matches</strong> stored as nodes and edges. It's flexible and powerful, but meaningless to an AI without context.</p>
+          <div class="step-visual" style="font-family:'Courier New',monospace;font-size:12px;line-height:1.6;white-space:pre;">CLUBS (PK: CLUB_ID)
+├── CLUB_NAME, COUNTRY, LEAGUE, FOUNDED_YEAR, STADIUM
+
+PERSONS (PK: PERSON_ID)
+├── NAME, NATIONALITY, DATE_OF_BIRTH, ROLE, POSITION
+
+MATCHES (PK: MATCH_ID)
+├── MATCH_NAME, EVENT_DATE, VENUE, HOME_TEAM_ID→CLUBS
+├── AWAY_TEAM_ID→CLUBS, SCORE_HOME, SCORE_AWAY
+
+PLAYER_CONTRACTS (PK: CONTRACT_ID)
+├── PERSON_ID→PERSONS, CLUB_ID→CLUBS
+├── START_DATE, END_DATE, CONTRACT_VALUE, JERSEY_NUMBER
+
+COACH_CONTRACTS (PK: CONTRACT_ID)
+├── PERSON_ID→PERSONS, CLUB_ID→CLUBS
+├── START_DATE, END_DATE, CONTRACT_VALUE
+
+MATCH_APPEARANCES (PK: APPEARANCE_ID)
+├── PERSON_ID→PERSONS, MATCH_ID→MATCHES
+├── MINUTES_PLAYED, GOALS_SCORED, ASSISTS, CARDS</div>
+          <p class="step-explain">6 tables, clear column names, foreign keys. An AI Coding Agent can read this schema — but it must <strong>reason about every relationship</strong> from scratch for each question.</p>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 2: AI Agent hits raw tables -->
     <div class="journey-step" data-step="1">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">2</div>
-          <div><div class="step-title">AI Coding Agent hits it directly</div>
-          <div class="step-subtitle">No semantic layer. No relationships. The agent must figure everything out alone.</div></div>
+          <div><div class="step-title">AI Coding Agent queries raw tables</div>
+          <div class="step-subtitle">The agent sees column names — but must discover relationships and meaning on its own.</div></div>
         </div>
         <div class="step-body">
-          <div class="step-visual">
+          <div class="step-examples">
+            <div class="step-example"><span class="check">✓</span> "Who plays for Real Madrid?" → JOIN PERSONS + PLAYER_CONTRACTS + CLUBS <strong>(doable, 2 joins)</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Goals scored by Messi?" → JOIN PERSONS + MATCH_APPEARANCES <strong>(doable, 1 join)</strong></div>
+            <div class="step-example fail"><span class="check">⚠️</span> "Which players worked with the same coach?" → <strong>Must figure out the traversal path alone</strong></div>
+          </div>
+          <div class="step-visual" style="font-size:12px;line-height:1.6;">
             <table>
-              <caption>What the AI sees: information_schema.columns (94 columns)</caption>
-              <tr><th>table</th><th>column</th><th>type</th></tr>
-              <tr><td>KG_NODE</td><td>NODE_ID</td><td>VARCHAR</td></tr>
-              <tr><td>KG_NODE</td><td>NODE_TYPE</td><td>VARCHAR</td></tr>
-              <tr><td>KG_NODE</td><td>PROPERTIES</td><td>VARIANT</td></tr>
-              <tr><td>KG_EDGE</td><td>SOURCE_ID</td><td>VARCHAR</td></tr>
-              <tr><td>KG_EDGE</td><td>TARGET_ID</td><td>VARCHAR</td></tr>
-              <tr><td>KG_EDGE</td><td>EDGE_TYPE</td><td>VARCHAR</td></tr>
-              <tr><td colspan="3" style="color:var(--sf-gray);font-style:italic;">...88 more columns across 12 tables...</td></tr>
+              <caption>The agent's reasoning for the exploratory question:</caption>
+              <tr><th>Step</th><th>What the agent does</th><th>Tokens spent</th></tr>
+              <tr><td>1</td><td>Introspects all 6 tables, 30+ columns</td><td>~8,000</td></tr>
+              <tr><td>2</td><td>Realizes PLAYER_CONTRACTS and COACH_CONTRACTS both link to CLUBS</td><td>~12,000</td></tr>
+              <tr><td>3</td><td>Builds a multi-table self-join with temporal overlap</td><td>~25,000</td></tr>
+              <tr><td>4</td><td>Query fails (wrong join logic). Retries.</td><td>~18,000</td></tr>
+              <tr><td>5</td><td>Fixes, executes, assembles result</td><td>~20,000</td></tr>
             </table>
           </div>
-          <p class="step-explain">The AI Coding Agent (Claude Code, Cursor, OpenAI Codex) sees <strong>raw column names and types</strong>. It has no idea that "n_001" is Messi, that PLAYS_FOR connects players to clubs, or how to traverse from a player to a coach.</p>
           <div class="step-callout red">
-            <strong>Every question requires full schema discovery.</strong> The agent must guess join keys, handle permission errors, and retry failed queries. No layer exists to prevent overthinking.
+            <strong>No layer prevents overthinking.</strong> The agent spends 487K tokens, $1.52, and ~600 seconds on every exploratory question — because it must rediscover relationships from scratch each time.
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 3: Scenario B — Ontology Schema -->
     <div class="journey-step" data-step="2">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">3</div>
-          <div><div class="step-title">AI helps build a Semantic Model</div>
-          <div class="step-subtitle">LLMs + business experts define what the data means — creating named views with business logic.</div></div>
+          <div><div class="step-title">Scenario B: Knowledge Graph + Ontology</div>
+          <div class="step-subtitle">Same soccer data, restructured with semantic views and ontology metadata.</div></div>
         </div>
         <div class="step-body">
-          <div class="step-visual">
-            <table>
-              <caption>V_PLAYER — Players with real names and attributes</caption>
-              <tr><th>name</th><th>position</th><th>nationality</th><th>age</th></tr>
-              <tr><td>Lionel Messi</td><td>Forward</td><td>Argentina</td><td>36</td></tr>
-              <tr><td>Erling Haaland</td><td>Forward</td><td>Norway</td><td>23</td></tr>
-              <tr><td>Pedri</td><td>Midfielder</td><td>Spain</td><td>21</td></tr>
-            </table>
-            <table style="margin-top:16px;">
-              <caption>V_PLAYS_FOR — Player-Club contracts</caption>
-              <tr><th>player_name</th><th>club_name</th><th>start_date</th><th>end_date</th></tr>
-              <tr><td>Messi</td><td>Barcelona</td><td>2004-07-01</td><td>2021-06-30</td></tr>
-              <tr><td>Messi</td><td>PSG</td><td>2021-08-10</td><td>2023-06-30</td></tr>
-              <tr><td>Haaland</td><td>Man City</td><td>2022-07-01</td><td>—</td></tr>
-            </table>
-            <table style="margin-top:16px;">
-              <caption>V_COACHES — Coach-Club assignments</caption>
-              <tr><th>coach_name</th><th>club_name</th><th>start_date</th><th>end_date</th></tr>
-              <tr><td>Guardiola</td><td>Barcelona</td><td>2008-06-01</td><td>2012-06-30</td></tr>
-              <tr><td>Guardiola</td><td>Man City</td><td>2016-07-01</td><td>—</td></tr>
-            </table>
-          </div>
-          <p class="step-explain">AI assists business experts in defining <strong>what "player" means, what "plays for" means, what "coach" means</strong>. Raw IDs become human-readable views with clear column names. This is the Semantic Layer on Snowflake.</p>
-          <div class="step-callout">
-            <strong>Cortex Analyst</strong> can now use these semantic models to understand metric definitions. The AI no longer guesses what columns mean.
-          </div>
+          <div class="step-visual" style="font-family:'Courier New',monospace;font-size:11px;line-height:1.5;white-space:pre;"><strong style="color:var(--sf-blue);">── Physical Layer ──</strong>
+KG_NODE (NODE_ID, NODE_TYPE, NAME, PROPS)
+KG_EDGE (SRC_ID→KG_NODE, DST_ID→KG_NODE, EDGE_TYPE, EFFECTIVE_START/END)
+
+<strong style="color:var(--sf-blue);">── Ontology Metadata ──</strong>
+ONT_CLASS       (CLASS_NAME, PARENT_CLASS, IS_ABSTRACT)
+ONT_RELATION_DEF(REL_NAME, DOMAIN_CLASS, RANGE_CLASS, INVERSE_REL)
+ONT_RULE        (RULE_KIND: INVERSE, TRANSITIVE...)
+
+<strong style="color:var(--sf-blue);">── Semantic Views (Cortex Analyst) ──</strong>
+V_PLAYER, V_COACH, V_CLUB, V_MATCH
+V_PLAYS_FOR, V_COACHES, V_PLAYED_IN, V_HOME_TEAM, V_AWAY_TEAM
+
+<strong style="color:var(--sf-green-light);">── Ontology Views (pre-encoded relationships) ──</strong>
+VW_ONT_PERSON         (ID, SUBTYPE: Player|Coach)
+VW_ONT_ORGANIZATION   (ID, SUBTYPE: Club)
+VW_ONT_WORKS_FOR      (SUBJECT_ID, OBJECT_ID, EFFECTIVE_START/END)
+VW_ONT_PARTICIPATES_IN(SUBJECT_ID, OBJECT_ID, EFFECTIVE_START/END)
+REL_RESOLVED          (REL_NAME, SRC_ID, DST_ID, SRC_CLASS, DST_CLASS)</div>
+          <p class="step-explain">The same players, coaches, clubs, and matches — but now organized with <strong>ontology metadata that encodes business relationships</strong> and semantic views that give AI clear entry points.</p>
         </div>
       </div>
     </div>
 
-    <!-- STEP 4 -->
+    <!-- STEP 4: Semantics makes questions fast -->
     <div class="journey-step" data-step="3">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">4</div>
-          <div><div class="step-title">Semantics makes many questions instant</div>
-          <div class="step-subtitle">Hard metric lookups are now trivial — the semantic model eliminates ambiguity.</div></div>
+          <div><div class="step-title">Semantic Views make metric questions instant</div>
+          <div class="step-subtitle">Cortex Analyst uses V_PLAYER, V_COACHES, etc. — resolves intent in 1 call.</div></div>
         </div>
         <div class="step-body">
           <div class="step-examples">
-            <div class="step-example"><span class="check">✓</span> "Who plays for Real Madrid?" → <strong>V_PLAYS_FOR instant lookup</strong></div>
-            <div class="step-example"><span class="check">✓</span> "How many goals did Messi score?" → <strong>V_PLAYED_IN aggregation</strong></div>
-            <div class="step-example"><span class="check">✓</span> "Which coaches managed Barcelona?" → <strong>V_COACHES filtered query</strong></div>
-            <div class="step-example"><span class="check">✓</span> "Show me all matches in March 2024" → <strong>V_MATCH date filter</strong></div>
-            <div class="step-example"><span class="check">✓</span> "Top scorers by nationality" → <strong>GROUP BY on V_PLAYER + V_PLAYED_IN</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Who plays for Real Madrid?" → <strong>V_PLAYS_FOR: 1 query, ~$0.05</strong></div>
+            <div class="step-example"><span class="check">✓</span> "How many goals did Messi score?" → <strong>V_PLAYED_IN: 1 aggregation, ~$0.05</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Which coaches managed Barcelona?" → <strong>V_COACHES: 1 filter, ~$0.05</strong></div>
+            <div class="step-example"><span class="check">✓</span> "Top scorers by nationality" → <strong>V_PLAYER + V_PLAYED_IN: 1 join, ~$0.08</strong></div>
           </div>
-          <p class="step-explain">For <strong>concrete, metric-based questions</strong>, semantics is transformative. Each question maps directly to a known view with clear columns. Zero ambiguity = zero overthinking = fast, cheap answers.</p>
+          <p class="step-explain">For <strong>concrete, metric-based questions</strong>, semantic views are transformative. Column names have business meaning. The semantic model YAML tells Cortex Analyst exactly which view to query.</p>
           <div class="step-callout green">
-            <strong>These questions now cost ~$0.05 each</strong> via Cortex Analyst — the semantic model resolves the intent in a single tool call with no retries needed.
+            Both Scenario A and B can answer these — but with semantics, there's <strong>zero ambiguity</strong>. The AI doesn't guess what "player" means or which table to use.
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 5 -->
+    <!-- STEP 5: Where semantics fall short -->
     <div class="journey-step" data-step="4">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">5</div>
-          <div><div class="step-title">But exploratory questions still struggle</div>
-          <div class="step-subtitle">When the question involves relationships across tables, the LLM must discover the path.</div></div>
+          <div><div class="step-title">Exploratory questions: where ontology wins</div>
+          <div class="step-subtitle">Relationships that span multiple tables require path discovery — unless pre-encoded.</div></div>
         </div>
         <div class="step-body">
           <div class="step-callout orange" style="margin-top:0;margin-bottom:20px;">
@@ -702,51 +701,46 @@
           </div>
           <div class="step-visual">
             <table>
-              <caption>The LLM's reasoning chain (6 tool calls, 333 seconds)</caption>
-              <tr><th>Step</th><th>Action</th><th>Problem</th></tr>
-              <tr><td>1</td><td>Query V_PLAYS_FOR</td><td>Gets player→club links</td></tr>
-              <tr><td>2</td><td>Query V_COACHES</td><td>Gets coach→club links</td></tr>
-              <tr><td>3</td><td>Try to cross-reference</td><td>Must discover that club_name bridges both tables</td></tr>
-              <tr><td>4</td><td>Build temporal overlap logic</td><td>Spent 19,828 reasoning tokens figuring this out</td></tr>
-              <tr><td>5</td><td>Handle edge cases</td><td>What about coaches who moved clubs?</td></tr>
-              <tr><td>6</td><td>Assemble final result</td><td>272K tokens total · $0.72 · Medium confidence</td></tr>
+              <caption>Scenario A (raw tables) — agent must discover the path</caption>
+              <tr><th></th><th>Reasoning</th><th>Cost</th></tr>
+              <tr><td>🔴</td><td>PERSONS → PLAYER_CONTRACTS → CLUBS ← COACH_CONTRACTS ← PERSONS</td><td>487K tokens</td></tr>
+              <tr><td></td><td>Must figure out temporal overlap, handle retries</td><td>~$1.52 / 600s</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>Scenario B (semantics only) — still discovers the bridge</caption>
+              <tr><th></th><th>Reasoning</th><th>Cost</th></tr>
+              <tr><td>🟠</td><td>V_PLAYS_FOR → club_name ← V_COACHES (6 tool calls)</td><td>272K tokens</td></tr>
+              <tr><td></td><td>Named columns help, but relationship isn't encoded</td><td>~$0.72 / 333s</td></tr>
+            </table>
+            <table style="margin-top:16px;">
+              <caption>Scenario B (ontology) — relationship already exists</caption>
+              <tr><th></th><th>Reasoning</th><th>Cost</th></tr>
+              <tr><td>🟢</td><td>VW_ONT_WORKS_FOR self-join (1 tool call)</td><td>180K tokens</td></tr>
+              <tr><td></td><td>"Person works for Organization" is pre-encoded</td><td>~$0.29 / 78s</td></tr>
             </table>
           </div>
-          <p class="step-explain">V_PLAYS_FOR and V_COACHES are <strong>separate tables</strong>. The semantic model defines each entity, but doesn't encode the relationship <em>"Person works for Organization"</em> as a single traversable concept. The LLM must <strong>discover</strong> that `club_name` is the bridge — through trial and error.</p>
+          <p class="step-explain">The ontology view <strong>VW_ONT_WORKS_FOR</strong> already encodes "Person works for Organization" — unifying Players and Coaches. One self-join answers the question. No discovery. No retries.</p>
         </div>
       </div>
     </div>
 
-    <!-- STEP 6 -->
+    <!-- STEP 6: Why Snowflake -->
     <div class="journey-step" data-step="5">
       <div class="step-card">
         <div class="step-header">
           <div class="step-num">6</div>
-          <div><div class="step-title">AI + Business Experts build an Ontology</div>
-          <div class="step-subtitle">Relationships are encoded as first-class objects. The LLM reads — it never discovers.</div></div>
+          <div><div class="step-title">Snowflake hosts all layers in one platform</div>
+          <div class="step-subtitle">Data + Semantics + Ontology + AI — all inside the data boundary.</div></div>
         </div>
         <div class="step-body">
-          <div class="step-visual">
-            <table>
-              <caption>VW_ONT_PERSON — Players AND Coaches unified</caption>
-              <tr><th>name</th><th>subtype</th><th>organization</th></tr>
-              <tr><td>Lionel Messi</td><td>Player</td><td>Barcelona</td></tr>
-              <tr><td>Pep Guardiola</td><td>Coach</td><td>Barcelona</td></tr>
-              <tr><td>Erling Haaland</td><td>Player</td><td>Man City</td></tr>
-              <tr><td>Pep Guardiola</td><td>Coach</td><td>Man City</td></tr>
-            </table>
-            <table style="margin-top:16px;">
-              <caption>VW_ONT_WORKS_FOR — "Person works for Organization" (pre-encoded)</caption>
-              <tr><th>person_name</th><th>role</th><th>organization</th><th>period</th></tr>
-              <tr><td>Messi</td><td>Player</td><td>Barcelona</td><td>2004–2021</td></tr>
-              <tr><td>Guardiola</td><td>Coach</td><td>Barcelona</td><td>2008–2012</td></tr>
-              <tr><td>Guardiola</td><td>Coach</td><td>Man City</td><td>2016–now</td></tr>
-              <tr><td>Haaland</td><td>Player</td><td>Man City</td><td>2022–now</td></tr>
-            </table>
-          </div>
-          <p class="step-explain">LLMs assist business experts in defining ontology relationships: <strong>"Person WORKS_FOR Organization"</strong> becomes a view where Players and Coaches are both People. One self-join on `VW_ONT_WORKS_FOR` answers the original question — <strong>1 tool call, 78 seconds, $0.29.</strong></p>
+          <div class="step-visual" style="font-family:'Courier New',monospace;font-size:12px;line-height:1.7;white-space:pre;"><strong style="color:var(--sf-green-light);">Layer 5:</strong> Cortex Agent (orchestrates everything)
+<strong style="color:var(--sf-blue);">Layer 4:</strong> Semantic Models (YAML → Cortex Analyst)
+<strong style="color:var(--sf-blue);">Layer 3:</strong> Ontology Views (VW_ONT_PERSON, VW_ONT_WORKS_FOR)
+<strong style="color:var(--sf-gray-light);">Layer 2:</strong> Ontology Metadata (ONT_CLASS, ONT_RELATION_DEF)
+<strong style="color:var(--sf-gray);">Layer 1:</strong> Physical Storage (KG_NODE + KG_EDGE)</div>
+          <p class="step-explain">LLMs assist business experts in building the ontology — defining that <strong>"Person WORKS_FOR Organization"</strong> is a real-world concept. Once encoded, the Cortex Agent reads pre-computed paths. A <strong>cheaper model (Sonnet) outperforms Opus</strong> because knowledge architecture > raw intelligence.</p>
           <div class="step-callout green">
-            <strong>A cheaper, smaller model (Sonnet) with ontology outperforms a more expensive model (Opus) without it.</strong> Snowflake's platform hosts data + semantics + ontology in one boundary — Cortex runs inside with zero data movement.
+            <strong>Snowflake's Cortex REST API runs inside the data boundary.</strong> No data leaves. RBAC enforced automatically. Audit logged. At 1,000 queries/day, ontology saves $1,230/day vs. raw AI coding agents — or $450K/year.
           </div>
         </div>
       </div>
