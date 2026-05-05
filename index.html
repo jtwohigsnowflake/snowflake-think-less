@@ -513,6 +513,105 @@
   </div>
 </div>
 
+<!-- FOOD FOR THOUGHT -->
+<section class="food-section" id="food">
+  <div class="section-label">The Restaurant Analogy</div>
+  <h2>Food for <span>Thought</span></h2>
+  <p class="section-desc">Let's talk about all these terms — LLM, RAG, MCP, API, Semantic Layer, Ontology. An AI agent is like a restaurant. Each layer solves a different failure mode.</p>
+
+  <div class="food-grid">
+    <!-- LLM -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">🧠</div>
+        <h3>LLM (The Brain)</h3>
+      </div>
+      <div class="food-card-analogy">You deciding what to eat. Without a brain, ingredients, recipes, and waiters all exist — but no one chooses, combines, or adapts.</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> The reasoning engine. It interprets intent, generates SQL, picks tools, and synthesizes answers.<br><br>
+        <strong>Skip it when:</strong> Everything is pre-decided (set menu, fixed reports, canned queries). No flexibility needed.<br><br>
+        <strong>Without it:</strong> Just a static system. Nothing adapts. Not an "agent."
+      </div>
+      <div class="food-card-missing bad"><strong>Cost of missing:</strong> No intelligence = no agent. System is static.</div>
+    </div>
+
+    <!-- RAG -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">📚</div>
+        <h3>RAG (Memory / Reviews)</h3>
+      </div>
+      <div class="food-card-analogy">Checking reviews or past orders. "Last time I had the fish and it was great." Without memory, you're ordering blind every time.</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> Retrieval-augmented generation. Pulls relevant docs, past queries, and domain context into the prompt.<br><br>
+        <strong>Skip it when:</strong> Questions are simple and self-contained. "What's 2+2?" doesn't need context.<br><br>
+        <strong>Without it:</strong> More hallucination. Generic answers. Misses "I'm allergic to peanuts" context.
+      </div>
+      <div class="food-card-missing ok"><strong>Token cost:</strong> LLM compensates by reasoning harder — more tokens spent guessing context that could've been retrieved.</div>
+    </div>
+
+    <!-- MCP -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">📋</div>
+        <h3>MCP (The Menu)</h3>
+      </div>
+      <div class="food-card-analogy">The menu listing what you can order. Without it, the kitchen and waiter exist — but you don't know what's available. "Can you make pasta? Do you even have dessert?"</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> Model Context Protocol. Standardized tool discovery — the AI knows what capabilities exist.<br><br>
+        <strong>Skip it when:</strong> Few tools, obvious options. A burger stand doesn't need a 20-page menu.<br><br>
+        <strong>Without it:</strong> Custom wiring for every tool. Model can't discover capabilities. Must hard-code integrations.
+      </div>
+      <div class="food-card-missing ok"><strong>Token cost:</strong> Agent wastes tokens probing for available tools — "can you do X?" loops before acting.</div>
+    </div>
+
+    <!-- API -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">🤵</div>
+        <h3>API / Tools (The Waiter)</h3>
+      </div>
+      <div class="food-card-analogy">The waiter who takes your order to the kitchen. You decide "I want a burger" — but without a waiter, nothing reaches the cook.</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> The execution layer. SQL runner, API calls, function invocations. Turns decisions into actions.<br><br>
+        <strong>Skip it when:</strong> Self-service only. Buffet, kiosk, cooking at home — you act directly.<br><br>
+        <strong>Without it:</strong> The model can plan but cannot act. Pure reasoning with zero execution.
+      </div>
+      <div class="food-card-missing bad"><strong>Cost of missing:</strong> Nothing happens. Plans without execution = zero value.</div>
+    </div>
+
+    <!-- Semantic / Ontology -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">📐</div>
+        <h3>Semantic + Ontology (Recipes)</h3>
+      </div>
+      <div class="food-card-analogy">The recipe book. You see chicken, tomato, cream, spices — but without a recipe, there's no definition of "butter chicken." You guess. You get it wrong.</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> Semantic layer defines metrics ("revenue = SUM(amount) WHERE status='paid'"). Ontology encodes relationships ("Person works for Organization").<br><br>
+        <strong>Skip it when:</strong> Simple queries. "SELECT * FROM users" doesn't need a recipe.<br><br>
+        <strong>Without it:</strong> "Revenue" interpreted differently every time. Joins become guesswork. Exploratory questions explode in cost.
+      </div>
+      <div class="food-card-missing bad"><strong>Token cost:</strong> 7× more reasoning tokens. Every query re-discovers what metrics mean and how tables connect.</div>
+    </div>
+
+    <!-- Tables -->
+    <div class="food-card">
+      <div class="food-card-top">
+        <div class="food-card-icon">🥩</div>
+        <h3>Relational Tables / Data (Ingredients)</h3>
+      </div>
+      <div class="food-card-analogy">The ingredients in the kitchen. Recipes, menu, and waiter all exist — but the kitchen is empty. No food to cook.</div>
+      <div class="food-card-real">
+        <strong>In AI terms:</strong> Snowflake tables, Postgres, data warehouse. The actual rows and columns. Everything else is metadata about this.<br><br>
+        <strong>Skip it when:</strong> Never. You always need data.<br><br>
+        <strong>Without it:</strong> Perfect schema, zero data = useless. Nothing to query, nothing to return.
+      </div>
+      <div class="food-card-missing bad"><strong>Cost of missing:</strong> Fatal. No data = no answers. Period.</div>
+    </div>
+  </div>
+</section>
+
 <!-- DEMO SECTION -->
 <section class="demo-section" id="demo">
   <div class="section-label">Real Comparison · Soccer Knowledge Graph</div>
@@ -866,104 +965,6 @@ REL_RESOLVED:     All relationships with class context</div>
 </section>
 
 
-<!-- FOOD FOR THOUGHT -->
-<section class="food-section" id="food">
-  <div class="section-label">The Restaurant Analogy</div>
-  <h2>Food for <span>Thought</span></h2>
-  <p class="section-desc">An AI agent is like a restaurant. Each layer solves a different failure mode. Here's what happens when one is missing — and when you can get away without it.</p>
-
-  <div class="food-grid">
-    <!-- LLM -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">🧠</div>
-        <h3>LLM (The Brain)</h3>
-      </div>
-      <div class="food-card-analogy">You deciding what to eat. Without a brain, ingredients, recipes, and waiters all exist — but no one chooses, combines, or adapts.</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> The reasoning engine. It interprets intent, generates SQL, picks tools, and synthesizes answers.<br><br>
-        <strong>Skip it when:</strong> Everything is pre-decided (set menu, fixed reports, canned queries). No flexibility needed.<br><br>
-        <strong>Without it:</strong> Just a static system. Nothing adapts. Not an "agent."
-      </div>
-      <div class="food-card-missing bad"><strong>Cost of missing:</strong> No intelligence = no agent. System is static.</div>
-    </div>
-
-    <!-- RAG -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">📚</div>
-        <h3>RAG (Memory / Reviews)</h3>
-      </div>
-      <div class="food-card-analogy">Checking reviews or past orders. "Last time I had the fish and it was great." Without memory, you're ordering blind every time.</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> Retrieval-augmented generation. Pulls relevant docs, past queries, and domain context into the prompt.<br><br>
-        <strong>Skip it when:</strong> Questions are simple and self-contained. "What's 2+2?" doesn't need context.<br><br>
-        <strong>Without it:</strong> More hallucination. Generic answers. Misses "I'm allergic to peanuts" context.
-      </div>
-      <div class="food-card-missing ok"><strong>Token cost:</strong> LLM compensates by reasoning harder — more tokens spent guessing context that could've been retrieved.</div>
-    </div>
-
-    <!-- MCP -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">📋</div>
-        <h3>MCP (The Menu)</h3>
-      </div>
-      <div class="food-card-analogy">The menu listing what you can order. Without it, the kitchen and waiter exist — but you don't know what's available. "Can you make pasta? Do you even have dessert?"</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> Model Context Protocol. Standardized tool discovery — the AI knows what capabilities exist.<br><br>
-        <strong>Skip it when:</strong> Few tools, obvious options. A burger stand doesn't need a 20-page menu.<br><br>
-        <strong>Without it:</strong> Custom wiring for every tool. Model can't discover capabilities. Must hard-code integrations.
-      </div>
-      <div class="food-card-missing ok"><strong>Token cost:</strong> Agent wastes tokens probing for available tools — "can you do X?" loops before acting.</div>
-    </div>
-
-    <!-- API -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">🤵</div>
-        <h3>API / Tools (The Waiter)</h3>
-      </div>
-      <div class="food-card-analogy">The waiter who takes your order to the kitchen. You decide "I want a burger" — but without a waiter, nothing reaches the cook.</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> The execution layer. SQL runner, API calls, function invocations. Turns decisions into actions.<br><br>
-        <strong>Skip it when:</strong> Self-service only. Buffet, kiosk, cooking at home — you act directly.<br><br>
-        <strong>Without it:</strong> The model can plan but cannot act. Pure reasoning with zero execution.
-      </div>
-      <div class="food-card-missing bad"><strong>Cost of missing:</strong> Nothing happens. Plans without execution = zero value.</div>
-    </div>
-
-    <!-- Semantic / Ontology -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">📐</div>
-        <h3>Semantic + Ontology (Recipes)</h3>
-      </div>
-      <div class="food-card-analogy">The recipe book. You see chicken, tomato, cream, spices — but without a recipe, there's no definition of "butter chicken." You guess. You get it wrong.</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> Semantic layer defines metrics ("revenue = SUM(amount) WHERE status='paid'"). Ontology encodes relationships ("Person works for Organization").<br><br>
-        <strong>Skip it when:</strong> Simple queries. "SELECT * FROM users" doesn't need a recipe.<br><br>
-        <strong>Without it:</strong> "Revenue" interpreted differently every time. Joins become guesswork. Exploratory questions explode in cost.
-      </div>
-      <div class="food-card-missing bad"><strong>Token cost:</strong> 7× more reasoning tokens. Every query re-discovers what metrics mean and how tables connect.</div>
-    </div>
-
-    <!-- Tables -->
-    <div class="food-card">
-      <div class="food-card-top">
-        <div class="food-card-icon">🥩</div>
-        <h3>Relational Tables / Data (Ingredients)</h3>
-      </div>
-      <div class="food-card-analogy">The ingredients in the kitchen. Recipes, menu, and waiter all exist — but the kitchen is empty. No food to cook.</div>
-      <div class="food-card-real">
-        <strong>In AI terms:</strong> Snowflake tables, Postgres, data warehouse. The actual rows and columns. Everything else is metadata about this.<br><br>
-        <strong>Skip it when:</strong> Never. You always need data.<br><br>
-        <strong>Without it:</strong> Perfect schema, zero data = useless. Nothing to query, nothing to return.
-      </div>
-      <div class="food-card-missing bad"><strong>Cost of missing:</strong> Fatal. No data = no answers. Period.</div>
-    </div>
-  </div>
-</section>
 
 <!-- CTA -->
 <section class="cta-section">
