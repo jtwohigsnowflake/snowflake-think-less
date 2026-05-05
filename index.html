@@ -412,7 +412,51 @@
   .scale-card .num.blue { color: var(--sf-blue); }
   .scale-card .label { font-size: 14px; color: var(--sf-gray); }
 
-  /* FOOD FOR THOUGHT */
+  /* CORTEX OVERVIEW */
+  .cortex-section { background: var(--sf-navy-mid); border-top: 1px solid var(--sf-border); border-bottom: 1px solid var(--sf-border); }
+  .cortex-content { max-width: 900px; margin: 0 auto; }
+  .cortex-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+  .cortex-col {
+    background: rgba(0,0,0,0.2); border: 1px solid var(--sf-border);
+    border-radius: 12px; padding: 24px;
+  }
+  .cortex-col h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  .cortex-col.code h3 { color: var(--sf-blue); }
+  .cortex-col.work h3 { color: var(--sf-green-light); }
+  .cortex-col ul { list-style: none; padding: 0; }
+  .cortex-col li {
+    font-size: 13px; color: var(--sf-gray-light); padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .cortex-col li:last-child { border-bottom: none; }
+  .cortex-prose { font-size: 15px; color: var(--sf-gray-light); line-height: 1.7; max-width: 900px; margin: 0 auto; }
+  .cortex-prose strong { color: var(--sf-white); }
+  .cortex-contrast {
+    margin-top: 28px; padding: 20px 24px;
+    background: rgba(255,90,95,0.05); border: 1px solid rgba(255,90,95,0.2);
+    border-radius: 10px; font-size: 14px; color: var(--sf-gray-light); line-height: 1.7;
+  }
+  .cortex-contrast strong { color: var(--sf-white); }
+
+  /* SEMANTIC VS ONTOLOGY HELPER */
+  .helper-section { background: var(--sf-navy); }
+  .helper-content { max-width: 900px; margin: 0 auto; }
+  .helper-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  .helper-card {
+    background: var(--sf-navy-mid); border: 1px solid var(--sf-border);
+    border-radius: 12px; padding: 24px;
+  }
+  .helper-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .helper-card.semantic h3 { color: var(--sf-orange-light); }
+  .helper-card.ontology h3 { color: var(--sf-green-light); }
+  .helper-card .principle { font-size: 13px; color: var(--sf-gray); margin-bottom: 14px; font-style: italic; }
+  .helper-card .example-q {
+    font-size: 14px; color: var(--sf-gray-light); padding: 10px 14px;
+    background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 8px;
+  }
+  .helper-card .example-q strong { color: var(--sf-white); }
+
+
   .food-section { background: var(--sf-navy); }
   .food-grid {
     display: grid;
@@ -470,6 +514,8 @@
     .spectrum-row.header { display: none; }
     .scale-cards { grid-template-columns: 1fr; }
     .food-grid { grid-template-columns: 1fr; }
+    .cortex-cols { grid-template-columns: 1fr; }
+    .helper-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     section { padding: 70px 20px; }
@@ -602,6 +648,49 @@
         <strong>Without it:</strong> Perfect schema, zero data = useless. Nothing to query, nothing to return.
       </div>
       <div class="food-card-missing bad"><strong>Cost of missing:</strong> Fatal. No data = no answers. Period.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SNOWFLAKE CORTEX -->
+<section class="cortex-section" id="cortex">
+  <div class="section-label">Snowflake Cortex</div>
+  <h2>Build (CODE) and Consume (<span>WORK</span>)</h2>
+  <p class="section-desc">Snowflake separates AI into a creation layer and a consumption layer — all powered by Cortex.</p>
+
+  <div class="cortex-content">
+    <div class="cortex-cols">
+      <div class="cortex-col code">
+        <h3>CODE (Build)</h3>
+        <ul>
+          <li>Cortex Code CLI</li>
+          <li>Cortex Code Desktop</li>
+          <li>Cortex REST API</li>
+          <li>Cortex Agents + Skills</li>
+          <li>Cortex Analyst</li>
+          <li>Cortex Search</li>
+          <li>Cortex AI Functions</li>
+        </ul>
+      </div>
+      <div class="cortex-col work">
+        <h3>WORK (Consume)</h3>
+        <ul>
+          <li>Snowflake Intelligence</li>
+          <li>MCP Server (tool for Cursor, Claude Code, Codex)</li>
+          <li>Cortex Agents in production</li>
+          <li>Semantic Models (Cortex Analyst)</li>
+          <li>Search Services (Cortex Search)</li>
+          <li>AI Functions in SQL pipelines</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="cortex-prose">In the creation layer, <strong>Cortex Code</strong> (CLI, Desktop, and REST API) is the entry point into Snowflake's AI capabilities. Developers can use the REST API to integrate external tools like Codex, Claude, or custom applications — allowing those systems to call Cortex for reasoning, retrieval, and action-taking while staying <strong>grounded in Snowflake data</strong>. Data engineers and analysts can use the CLI or Desktop to build agents, define workflows, create pipelines (dbt, Openflow, dynamic tables), and operationalize AI directly where the data lives.</p>
+
+    <p class="cortex-prose" style="margin-top:16px;">Cortex provides the core building blocks — <strong>agents, search, analyst, and functions</strong> — that turn raw data into composable, production-ready intelligence.</p>
+
+    <div class="cortex-contrast">
+      <strong>The contrast:</strong> Many AI coding agents today connect directly to Snowflake tables and rely purely on LLM reasoning without using Cortex. While this works, it leads to <strong>overthinking, excessive token usage, higher cost, and more hallucinations</strong> — because the model has to infer context, logic, and relationships on its own. Snowflake changes this by grounding AI in governed data and shared logic. By enabling <strong>semantic layers</strong> (consistent metrics) and evolving toward <strong>ontologies</strong> (relationships and context), Snowflake reduces unnecessary reasoning and improves accuracy. The result is better unit economics across the entire stack — less time and compute spent "thinking," more value from knowing, acting, and scaling efficiently.
     </div>
   </div>
 </section>
@@ -895,6 +984,34 @@ REL_RESOLVED:     All relationships with class context</div>
             <strong>$450K/year saved</strong> by moving from raw tables to ontology. Snowflake's Cortex REST API runs inside the data boundary — no data leaves, RBAC enforced, audit logged. Each layer you add reduces cost exponentially.
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEMANTIC VS ONTOLOGY HELPER -->
+<section class="helper-section">
+  <div class="section-label">How Snowflake Helps AI Coding Agents Scale</div>
+  <h2>Semantic Models + <span>Ontology</span></h2>
+  <p class="section-desc">Snowflake can help AI Coding Agents in areas they lack. In order to scale efficiently, you need Semantic Models and Ontology.</p>
+
+  <div class="helper-content">
+    <div class="helper-grid">
+      <div class="helper-card semantic">
+        <h3>Semantic Model</h3>
+        <div class="principle">"What is X?"</div>
+        <div class="example-q"><strong>Example:</strong> "Goals + assists per player by season"</div>
+        <div class="example-q"><strong>Example:</strong> "Total contract value by club"</div>
+        <div class="example-q"><strong>Example:</strong> "Average minutes played per match"</div>
+        <p style="font-size:13px;color:var(--sf-gray);margin-top:12px;">Defines metrics, entities, and aggregations. The model knows what "goals" means, which table holds it, and how to compute it.</p>
+      </div>
+      <div class="helper-card ontology">
+        <h3>Ontology</h3>
+        <div class="principle">"How is X related to Y?"</div>
+        <div class="example-q"><strong>Example:</strong> "Which players were under the same coach at the same time?"</div>
+        <div class="example-q"><strong>Example:</strong> "Who has worked at clubs in both La Liga and Premier League?"</div>
+        <div class="example-q"><strong>Example:</strong> "Find all people connected to Barcelona"</div>
+        <p style="font-size:13px;color:var(--sf-gray);margin-top:12px;">Encodes relationships between entities. The model knows that Players and Coaches are both People, and that People work for Organizations.</p>
       </div>
     </div>
   </div>
